@@ -1,0 +1,32 @@
+.products {
+    display: flex;
+}
+
+.item {
+    margin: 10px;
+    display: flex;
+}
+
+.image {
+    height: 80px;
+    width: 80px;
+    padding-right: 10px;
+}
+
+.info {
+
+}
+
+.label {
+    display: flex;
+}
+
+.description {
+    font-style: italic;
+}
+
+.name {
+    font-weight: bold;
+    padding-right: 5px;
+    padding-left: 5px;
+}

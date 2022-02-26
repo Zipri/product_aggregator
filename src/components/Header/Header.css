@@ -1,0 +1,5 @@
+.header {
+    grid-area: head;
+
+    background-color: darkturquoise;
+}
