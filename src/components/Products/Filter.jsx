@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import s from './Products.module.css';
+import ProductItem from "../common/ProductItem/ProductItem";
 
 
 const Filter = (props) => {
@@ -14,10 +15,13 @@ const Filter = (props) => {
 
     return <div>
         <div>
-            <textarea ref={findElement} />
+            <textarea ref={findElement}/>
             <button onClick={find}>Find</button>
         </div>
-        {findProducts.map(item => <div>{item.name}</div>)}
+        {findProducts.map(product => <ProductItem name={product.name}
+                                                  price={product.price}
+                                                  number={product.number}
+                                                  picture={product.picture}/>)}
     </div>
 };
 

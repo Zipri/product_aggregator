@@ -1,0 +1,39 @@
+.productGrid {
+
+}
+
+.productRow {
+    display: flex;
+}
+
+.productColumn {
+
+}
+
+.productCell {
+    margin: 10px;
+}
+
+.image {
+    height: 200px;
+    width: 200px;
+    padding-right: 10px;
+}
+
+.info {
+
+}
+
+.stringInfo {
+    display: flex;
+}
+
+.description {
+    font-style: italic;
+}
+
+.name {
+    font-weight: bold;
+    padding-right: 5px;
+    padding-left: 5px;
+}

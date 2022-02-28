@@ -1,13 +1,11 @@
 import React from 'react';
-
-import './Perekrostok.css';
+import ProductGrid from "../common/ProductGrid/ProductGrid";
+import s from './Perekrostok.module.css';
 
 const Perekrostok = (props) => {
-    return (
-        <div className="perekrostok">
-            Perekrostok
-        </div>
-    );
+    return <div className={s.perekrostok}>
+        <ProductGrid products={props.perekrostokProducts} columns={4}/>
+    </div>
 }
 
 export default Perekrostok;

@@ -10,4 +10,6 @@ const Notes = (props) => {
     );
 }
 
+//TODO простые заметки, редактируемые на странице заметок, но видимые в <Navbar/>
+
 export default Notes;
