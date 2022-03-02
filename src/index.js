@@ -4,18 +4,21 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-import './index.css';
 import Store from "./redux/store";
 
+import './index.css';
 
-ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <App store={Store}/>
-        </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+let rerenderEntireTree = (state) => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <BrowserRouter>
+                <App store={state}/>
+            </BrowserRouter>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+};
+rerenderEntireTree(Store);
+Store.subscribe(rerenderEntireTree);
 
 reportWebVitals();

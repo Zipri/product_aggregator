@@ -3,10 +3,10 @@ import {Routes, Route} from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Pyatorochka from "./components/Pyatorochka/Pyatorochka";
-import Perekrostok from "./components/Perekrostok/Perekrostok";
-import Notes from "./components/Notes/Notes";
+import GroceryStore from "./components/common/GroceryStore/GroceryStore";
 import Products from "./components/Products/Products";
+import ShoppingBasket from "./components/ShoppingBasket/ShoppingBasket";
+import Notes from "./components/Notes/Notes";
 
 import './App.css';
 
@@ -17,15 +17,26 @@ const App = (props) => {
         <Navbar/>
         <div className="contentWrapper">
             <Routes>
-                <Route path='/pyatorochka-items'
-                       element={<Pyatorochka pyatorochkaProducts={props.store.getPyatorochkaProducts()}/>}/>
-                <Route path='/perekrostok-items'
-                       element={<Perekrostok perekrostokProducts={props.store.getPerekrostokProducts()}/>}/>
+                {/*TODO сделать 5 и + одной компонентой с ранзными входящими параметрами*/}
+                <Route path='/marketA'
+                       element={<GroceryStore products={props.store.getPyatorochkaProducts()}
+                           //addItem={props.store.addItem.bind(props.store)}
+                                              dispatch={props.store.dispatch.bind(props.store)}
+                       />}/>
+                <Route path='/marketB'
+                       element={<GroceryStore products={props.store.getPerekrostokProducts()}
+                           //addItem={props.store.addItem.bind(props.store)}
+                                              dispatch={props.store.dispatch.bind(props.store)}
+                       />}/>
                 <Route path='/products'
                        element={<Products products={props.store.getProducts()}
                                           perekrostokProducts={props.store.getPerekrostokProducts()}
                                           pyatorochkaProducts={props.store.getPyatorochkaProducts()}/>}/>
-                <Route path='/notes' element={<Notes/>}/>
+                <Route path='/shoppingBasket'
+                       element={<ShoppingBasket items={props.store.getShoppingBasket()}/>}/>
+                <Route path='/notes'
+                       element={<Notes notes={props.store.getNotes()}
+                                       dispatch={props.store.dispatch.bind(props.store)}/>}/>
             </Routes>
         </div>
     </div>

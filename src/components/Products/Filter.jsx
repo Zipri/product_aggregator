@@ -5,7 +5,7 @@ import ProductItem from "../common/ProductItem/ProductItem";
 
 const Filter = (props) => {
 
-    let [findProducts, setFindProducts] = useState(props.products)
+    let [findProducts, setFindProducts] = useState([])
     let findElement = React.createRef()
 
     const find = () => {

@@ -12,10 +12,13 @@ const Item = (props) => <div>
 const Navbar = (props) => {
     return (
         <nav className="navbar">
-            <Item url="pyatorochka-items" name="Pyatorochka Items"/>
-            <Item url="perekrostok-items" name="Perekrostok Items"/>
+            <Item url="marketA" name="Market A"/>
+            <Item url="marketB" name="Market B"/>
             <Item url="products" name="Products"/>
+            <Item url="shoppingBasket" name="Shopping basket"/>
             <Item url="notes" name="Notes"/>
+            {/*<div>{props.notes.map(note => <div>{note.text}</div>)}</div>*/}
+        {/*TODO разберись ты с Notes*/}
         </nav>
     );
 }
