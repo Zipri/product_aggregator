@@ -17,17 +17,12 @@ const App = (props) => {
         <Navbar/>
         <div className="contentWrapper">
             <Routes>
-                {/*TODO сделать 5 и + одной компонентой с ранзными входящими параметрами*/}
                 <Route path='/marketA'
                        element={<GroceryStore products={props.store.getPyatorochkaProducts()}
-                           //addItem={props.store.addItem.bind(props.store)}
-                                              dispatch={props.store.dispatch.bind(props.store)}
-                       />}/>
+                                              addItem={props.store.addItem.bind(props.store)}/>}/>
                 <Route path='/marketB'
                        element={<GroceryStore products={props.store.getPerekrostokProducts()}
-                           //addItem={props.store.addItem.bind(props.store)}
-                                              dispatch={props.store.dispatch.bind(props.store)}
-                       />}/>
+                                              addItem={props.store.addItem.bind(props.store)}/>}/>
                 <Route path='/products'
                        element={<Products products={props.store.getProducts()}
                                           perekrostokProducts={props.store.getPerekrostokProducts()}

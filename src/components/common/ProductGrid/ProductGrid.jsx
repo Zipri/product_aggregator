@@ -10,12 +10,12 @@ const StringInfo = (props) => <div className={s.stringInfo}>
 </div>
 
 const ProductCell = (props) => {
-    const addItem = () => props.dispatch(addNewItem({
+    const addItem = () => props.addItem({
         name: props.name,
         price: props.price,
         number: props.number,
         picture: props.picture
-    }))
+    })
     return <div className={s.productCell}>
         <img className={s.image} src={props.picture}/>
         <div className={s.info}>
@@ -24,7 +24,6 @@ const ProductCell = (props) => {
             <StringInfo description="Number:" name={props.number} price={false} items={true}/>
         </div>
         <button onClick={addItem}>Add to basket</button>
-        {/*    TODO где-то ошибка с добавлением товара в корзину*/}
     </div>
 }
 
@@ -34,8 +33,8 @@ const ProductGrid = (props) => {
                      price={product.price}
                      number={product.number}
                      picture={product.picture}
-                     // addItem={props.addItem}
-                     dispatch={props.dispatch}/>)
+                     //dispatch={props.dispatch}
+                     addItem={props.addItem}/>)
     const columns = props.columns;
     const rowsNumber = Math.ceil(productColumns.length / columns)
     const productRows = [...Array(rowsNumber)]
