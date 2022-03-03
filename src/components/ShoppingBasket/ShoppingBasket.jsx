@@ -5,14 +5,17 @@ const ShoppingBasket = (props) => {
     let commonPrice = 0;
     return <div>
         {props.items.map(item => {
-            commonPrice += item.price
-            return <ProductItem name={item.name}
-                                price={item.price}
-                                number={item.number}
-                                picture={item.picture}/>
+            commonPrice += item.item.price
+            return <ProductItem name={item.item.name}
+                                price={item.item.price}
+                                number={item.item.number}
+                                picture={item.item.picture}
+                                productId={item.id}
+                                deleteItem={props.deleteItem}
+                                flag={true}/>
         })}
         <div>
-            Common price: {commonPrice} ₽
+            Итоговая сумма: {commonPrice} ₽
         </div>
     </div>
 }

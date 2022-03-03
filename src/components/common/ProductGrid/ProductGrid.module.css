@@ -15,9 +15,9 @@
 }
 
 .image {
-    height: 200px;
-    width: 200px;
-    padding-right: 10px;
+    height: 190px;
+    width: 190px;
+    border-radius: 20px;
 }
 
 .info {

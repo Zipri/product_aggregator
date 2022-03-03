@@ -173,9 +173,14 @@ let Store = {
         return this._state.notes
     },
     addItem(newItem) {
-        this._state.shoppingBasket.push(newItem)
+        this._state.shoppingBasket.push({id: this._state.shoppingBasket.length, item: newItem})
         //this._state.shoppingBasket = [...this._state.shoppingBasket, {id: 1, item: newItem}]
         //TODO видимо диспатч не работал по той же причине, по которой не работает [...this._state.shoppingBasket, {id: 1, item: newItem}]
+    },
+    deleteItem(newId) {
+        this._state.shoppingBasket = this._state.shoppingBasket.filter(
+            item => item.id !== newId
+        )
     },
 
     dispatch(action) {

@@ -1,5 +1,13 @@
 .header {
     grid-area: head;
 
-    background-color: darkturquoise;
+    background-color: #188ffe;
+}
+
+.logo {
+    color: azure;
+    padding-left: 23px;
+    font-family: fantasy;
+    font-variant: small-caps;
+    font-size: 32px;
 }

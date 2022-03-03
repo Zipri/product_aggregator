@@ -28,7 +28,8 @@ const App = (props) => {
                                           perekrostokProducts={props.store.getPerekrostokProducts()}
                                           pyatorochkaProducts={props.store.getPyatorochkaProducts()}/>}/>
                 <Route path='/shoppingBasket'
-                       element={<ShoppingBasket items={props.store.getShoppingBasket()}/>}/>
+                       element={<ShoppingBasket items={props.store.getShoppingBasket()}
+                                                deleteItem={props.store.deleteItem.bind(props.store)}/>}/>
                 <Route path='/notes'
                        element={<Notes notes={props.store.getNotes()}
                                        dispatch={props.store.dispatch.bind(props.store)}/>}/>

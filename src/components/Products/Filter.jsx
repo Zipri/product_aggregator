@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import s from './Products.module.css';
 import ProductItem from "../common/ProductItem/ProductItem";
+import {Button} from "antd";
+import { SearchOutlined } from '@ant-design/icons';
+import s from './Products.module.css';
 
 
 const Filter = (props) => {
@@ -16,7 +18,7 @@ const Filter = (props) => {
     return <div>
         <div>
             <textarea ref={findElement}/>
-            <button onClick={find}>Find</button>
+            <Button type="primary" icon={<SearchOutlined/>} onClick={find}>Найти</Button>
         </div>
         {findProducts.map(product => <ProductItem name={product.name}
                                                   price={product.price}

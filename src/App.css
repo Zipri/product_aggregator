@@ -10,6 +10,6 @@
 
 .contentWrapper {
     grid-area: pageC;
-    background-color: antiquewhite;
+    display: inline-block;
     height: min-content;
 }

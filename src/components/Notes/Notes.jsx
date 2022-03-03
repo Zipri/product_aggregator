@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {addNote} from "../../redux/product-reducer";
 import './Notes.css';
+import {Button} from "antd";
 
 const Notes = (props) => {
     let [notes, setNotes] = useState(props.notes)
@@ -15,7 +16,7 @@ const Notes = (props) => {
     return <div className="notes">
         <div>
             <textarea ref={newNote}/>
-            <button onClick={addNewNote}>Add</button>
+            <Button type="primary" onClick={addNewNote}>+</Button>
         </div>
         {notes.map(note => <div>{note.text}</div>)}
     </div>
