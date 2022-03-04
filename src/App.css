@@ -11,5 +11,19 @@
 .contentWrapper {
     grid-area: pageC;
     display: inline-block;
-    height: min-content;
+    height: 95vh;
+    overflow: auto;
+}
+
+#element::-webkit-scrollbar {
+    width: 5px;
+}
+
+#element::-webkit-scrollbar-track {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+    background-color: #f9f9fd;
+}
+
+#element::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #188ffe, #00c6fb);
 }

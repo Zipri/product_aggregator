@@ -178,6 +178,7 @@ let Store = {
         //TODO видимо диспатч не работал по той же причине, по которой не работает [...this._state.shoppingBasket, {id: 1, item: newItem}]
     },
     deleteItem(newId) {
+        debugger
         this._state.shoppingBasket = this._state.shoppingBasket.filter(
             item => item.id !== newId
         )

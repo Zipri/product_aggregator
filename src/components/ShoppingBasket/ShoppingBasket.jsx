@@ -14,9 +14,9 @@ const ShoppingBasket = (props) => {
                                 deleteItem={props.deleteItem}
                                 flag={true}/>
         })}
-        <div>
-            Итоговая сумма: {commonPrice} ₽
-        </div>
+        {props.items.length
+            ? <div>Итоговая сумма: {commonPrice} ₽</div>
+            : <div>Вы ещё не добавили товаров в корзину</div>}
     </div>
 }
 

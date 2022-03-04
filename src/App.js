@@ -15,7 +15,7 @@ const App = (props) => {
     return <div className="appWrapper">
         <Header/>
         <Navbar/>
-        <div className="contentWrapper">
+        <div className="contentWrapper" id="element">
             <Routes>
                 <Route path='/marketA'
                        element={<GroceryStore products={props.store.getPyatorochkaProducts()}

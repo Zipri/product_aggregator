@@ -1,6 +1,6 @@
 import React from 'react';
-import s from './ProductItem.module.css';
 import {Button} from "antd";
+import s from './ProductItem.module.css';
 
 const Label = (props) => <div className={s.label}>
     <div className={s.description}>{props.description}</div>
@@ -19,7 +19,7 @@ const ProductItem = (props) => {
             <Label description="Цена:" name={props.price} price={true} items={false}/>
             <Label description="Количество:" name={props.number} price={false} items={true}/>
         </div>
-        {/*{props.flag && <Button type="primary" onClick={deleteThisItem}>x</Button>}*/}
+        {props.flag && <Button type="primary" onClick={deleteThisItem}>x</Button>}
     </div>
 }
 
