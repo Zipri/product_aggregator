@@ -1,29 +1,31 @@
 import React, {useState} from 'react';
 import ProductItem from "../common/ProductItem/ProductItem";
 import {Button} from "antd";
-import { SearchOutlined } from '@ant-design/icons';
+import {SearchOutlined} from '@ant-design/icons';
 import s from './Products.module.css';
+import Search from "antd/es/input/Search";
 
 
 const Filter = (props) => {
-
-    let [findProducts, setFindProducts] = useState([])
-    let findElement = React.createRef()
-
-    const find = () => {
-        let text = findElement.current.value
-        setFindProducts(props.products.filter(product => product.name === text))
-    }
-
-    return <div>
-        <div>
-            <textarea ref={findElement}/>
-            <Button type="primary" icon={<SearchOutlined/>} onClick={find}>Найти</Button>
+    return <div className={s.filter}>
+        <div className={s.filterItem}>
+            <Search placeholder="Поиск по названию"
+                    onSearch={props.findByName}
+                    enterButton/>
+            {props.findProductsName.map(product => <ProductItem name={product.name}
+                                                          price={product.price}
+                                                          number={product.number}
+                                                          picture={product.picture}/>)}
         </div>
-        {findProducts.map(product => <ProductItem name={product.name}
-                                                  price={product.price}
-                                                  number={product.number}
-                                                  picture={product.picture}/>)}
+        <div className={s.filterItem}>
+            <Search placeholder="Поиск по категории"
+                    onSearch={props.findByCategory}
+                    enterButton/>
+            {props.findProductsCategory.map(product => <ProductItem name={product.name}
+                                                              price={product.price}
+                                                              number={product.number}
+                                                              picture={product.picture}/>)}
+        </div>
     </div>
 };
 

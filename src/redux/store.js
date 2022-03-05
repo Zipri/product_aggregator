@@ -97,7 +97,7 @@ let Store = {
             {
                 id: 11,
                 market: "pyatorochka",
-                category: "бобыве",
+                category: "бобовые",
                 name: "горох",
                 price: 15,
                 number: 1110,
@@ -141,6 +141,7 @@ let Store = {
             },
         ],
         shoppingBasket: [],
+        favoriteProducts: [],
         notes: [
             {id: 1, text: "первая заметка"},
             {id: 2, text: "вторая заметка"},
@@ -169,19 +170,25 @@ let Store = {
     getShoppingBasket() {
         return this._state.shoppingBasket
     },
+    getFavoriteProducts() {
+        return this._state.favoriteProducts
+    },
     getNotes() {
         return this._state.notes
     },
+
     addItem(newItem) {
         this._state.shoppingBasket.push({id: this._state.shoppingBasket.length, item: newItem})
         //this._state.shoppingBasket = [...this._state.shoppingBasket, {id: 1, item: newItem}]
         //TODO видимо диспатч не работал по той же причине, по которой не работает [...this._state.shoppingBasket, {id: 1, item: newItem}]
     },
     deleteItem(newId) {
-        debugger
         this._state.shoppingBasket = this._state.shoppingBasket.filter(
             item => item.id !== newId
         )
+    },
+    addNewFavorite(newItem) {
+        this._state.favoriteProducts.push({id: this._state.favoriteProducts.length, item: newItem})
     },
 
     dispatch(action) {

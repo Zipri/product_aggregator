@@ -9,6 +9,7 @@ import ShoppingBasket from "./components/ShoppingBasket/ShoppingBasket";
 import Notes from "./components/Notes/Notes";
 
 import './App.css';
+import FavoriteProducts from "./components/FavoriteProducts/FavoriteProducts";
 
 
 const App = (props) => {
@@ -19,17 +20,21 @@ const App = (props) => {
             <Routes>
                 <Route path='/marketA'
                        element={<GroceryStore products={props.store.getPyatorochkaProducts()}
-                                              addItem={props.store.addItem.bind(props.store)}/>}/>
+                                              addItem={props.store.addItem.bind(props.store)}
+                                              addNewFavorite={props.store.addNewFavorite.bind(props.store)}/>}/>
                 <Route path='/marketB'
                        element={<GroceryStore products={props.store.getPerekrostokProducts()}
-                                              addItem={props.store.addItem.bind(props.store)}/>}/>
+                                              addItem={props.store.addItem.bind(props.store)}
+                                              addNewFavorite={props.store.addNewFavorite.bind(props.store)}/>}/>
                 <Route path='/products'
-                       element={<Products products={props.store.getProducts()}
-                                          perekrostokProducts={props.store.getPerekrostokProducts()}
-                                          pyatorochkaProducts={props.store.getPyatorochkaProducts()}/>}/>
+                       element={<GroceryStore products={props.store.getProducts()}
+                                              addItem={props.store.addItem.bind(props.store)}
+                                              addNewFavorite={props.store.addNewFavorite.bind(props.store)}/>}/>
                 <Route path='/shoppingBasket'
                        element={<ShoppingBasket items={props.store.getShoppingBasket()}
                                                 deleteItem={props.store.deleteItem.bind(props.store)}/>}/>
+                <Route path='/favoriteProducts'
+                       element={<FavoriteProducts favorites={props.store.getFavoriteProducts()}/>}/>
                 <Route path='/notes'
                        element={<Notes notes={props.store.getNotes()}
                                        dispatch={props.store.dispatch.bind(props.store)}/>}/>
@@ -37,5 +42,7 @@ const App = (props) => {
         </div>
     </div>
 }
-
+//TODO добавить отображение в навбар при доавление в корзины или фавориты
+//TODO разобраться с инпуом для поиска
+//TODO сортировка для таблицы
 export default App;

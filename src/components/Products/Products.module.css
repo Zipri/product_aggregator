@@ -1,6 +1,22 @@
 .products {
     display: flex;
-    /*TODO может сделать центрирование contenWrapper вместо каждой страницы?*/
-    width: min-content;
-    margin: 0 auto;
+    width: fit-content;
+    margin: auto;
+}
+/*productList*/
+.productList {
+    width: 500px;
+    padding: 20px;
+}
+.findButtons {
+    padding-left: 10px;
+}
+/*filter*/
+.filter {
+    display: flex;
+}
+
+.filterItem {
+    padding: 20px;
+    width: 300px;
 }

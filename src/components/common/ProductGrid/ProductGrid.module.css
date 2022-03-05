@@ -1,5 +1,5 @@
 .productGrid {
-
+    padding-top: 20px;
 }
 
 .productRow {
@@ -36,4 +36,9 @@
     font-weight: bold;
     padding-right: 5px;
     padding-left: 5px;
+}
+
+.addButton {
+    width: 190px;
+    margin-top: 5px;
 }

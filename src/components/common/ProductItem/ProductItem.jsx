@@ -12,6 +12,13 @@ const Label = (props) => <div className={s.label}>
 const ProductItem = (props) => {
     const deleteThisItem = () => {
         props.deleteItem(props.productId)}
+    const changeFindName = () => {
+        props.setFindInputName(props.name)
+    }
+    const changeFindCategory = () => {
+        props.setFindInputCategory(props.category)
+    }
+
     return <div className={s.item}>
         <img className={s.image} src={props.picture}/>
         <div className={s.info}>
@@ -19,7 +26,17 @@ const ProductItem = (props) => {
             <Label description="Цена:" name={props.price} price={true} items={false}/>
             <Label description="Количество:" name={props.number} price={false} items={true}/>
         </div>
-        {props.flag && <Button type="primary" onClick={deleteThisItem}>x</Button>}
+        {props.flagBasket && <Button type="primary" onClick={deleteThisItem}>x</Button>}
+        <div className={s.findButtons}>
+            {props.flagList && <Button type="primary"
+                                       onClick={changeFindName}>
+                Поиск по названию
+            </Button>}
+            {props.flagList && <Button type="primary"
+                                       onClick={changeFindCategory}>
+                Поиск по категории
+            </Button>}
+        </div>
     </div>
 }
 

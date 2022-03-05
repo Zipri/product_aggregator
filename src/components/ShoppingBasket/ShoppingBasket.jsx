@@ -12,7 +12,7 @@ const ShoppingBasket = (props) => {
                                 picture={item.item.picture}
                                 productId={item.id}
                                 deleteItem={props.deleteItem}
-                                flag={true}/>
+                                flagBasket={true}/>
         })}
         {props.items.length
             ? <div>Итоговая сумма: {commonPrice} ₽</div>

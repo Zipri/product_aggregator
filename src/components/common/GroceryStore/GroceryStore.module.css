@@ -1,5 +1,17 @@
 .groceryStore {
+    display: flex;
     width: min-content;
     height: min-content;
     margin: auto;
+}
+
+.productFilter {
+
+}
+
+.radioButtons {
+    margin-left: 20px;
+    margin-top: 20px;
+    text-align: center;
+    width: 90px;
 }
