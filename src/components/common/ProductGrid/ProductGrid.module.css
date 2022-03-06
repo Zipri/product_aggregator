@@ -12,6 +12,7 @@
 
 .productCell {
     margin: 10px;
+    width: 190px;
 }
 
 .image {
@@ -41,4 +42,8 @@
 .addButton {
     width: 190px;
     margin-top: 5px;
+}
+
+.search {
+    width: 838px;
 }

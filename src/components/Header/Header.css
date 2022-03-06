@@ -5,6 +5,7 @@
 }
 
 .logo {
+    display: flex;
     color: azure;
     padding-left: 23px;
     font-family: fantasy;

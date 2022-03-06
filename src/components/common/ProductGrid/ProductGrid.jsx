@@ -58,6 +58,7 @@ const ProductGrid = (props) => {
     return <div className={s.productGrid}>
         <Search placeholder="Поиск по названию"
                 onSearch={props.findByName}
+                className={s.search}
                 enterButton/>
         {productRows.map(row => <div className={s.productRow}>
             {row.map(cell => cell)}

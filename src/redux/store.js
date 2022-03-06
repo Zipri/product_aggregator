@@ -6,7 +6,7 @@ let Store = {
         products: [
             {
                 id: 1,
-                market: "perekrostok",
+                market: "Перекрёсток",
                 category: "напитки",
                 name: "кофе",
                 price: 100,
@@ -15,7 +15,7 @@ let Store = {
             },
             {
                 id: 2,
-                market: "perekrostok",
+                market: "Перекрёсток",
                 category: "крупы",
                 name: "каша",
                 price: 40,
@@ -24,7 +24,7 @@ let Store = {
             },
             {
                 id: 3,
-                market: "perekrostok",
+                market: "Перекрёсток",
                 category: "овощи",
                 name: "картошка",
                 price: 400,
@@ -33,7 +33,7 @@ let Store = {
             },
             {
                 id: 4,
-                market: "perekrostok",
+                market: "Перекрёсток",
                 category: "крупы",
                 name: "рис",
                 price: 1600,
@@ -42,7 +42,7 @@ let Store = {
             },
             {
                 id: 5,
-                market: "perekrostok",
+                market: "Перекрёсток",
                 category: "бобовые",
                 name: "фасоль",
                 price: 80,
@@ -51,7 +51,7 @@ let Store = {
             },
             {
                 id: 6,
-                market: "perekrostok",
+                market: "Перекрёсток",
                 category: "мясо",
                 name: "кебаб",
                 price: 234,
@@ -60,7 +60,7 @@ let Store = {
             },
             {
                 id: 7,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "напитки",
                 name: "кофе",
                 price: 110,
@@ -69,7 +69,7 @@ let Store = {
             },
             {
                 id: 8,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "крупы",
                 name: "каша",
                 price: 42,
@@ -78,7 +78,7 @@ let Store = {
             },
             {
                 id: 9,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "овощи",
                 name: "картошка",
                 price: 430,
@@ -87,7 +87,7 @@ let Store = {
             },
             {
                 id: 10,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "крупы",
                 name: "рис",
                 price: 1640,
@@ -96,7 +96,7 @@ let Store = {
             },
             {
                 id: 11,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "бобовые",
                 name: "горох",
                 price: 15,
@@ -105,7 +105,7 @@ let Store = {
             },
             {
                 id: 12,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "мясо",
                 name: "шаверма",
                 price: 224,
@@ -114,7 +114,7 @@ let Store = {
             },
             {
                 id: 13,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "закуски",
                 name: "чипсы",
                 price: 214,
@@ -123,7 +123,7 @@ let Store = {
             },
             {
                 id: 14,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "ягоды",
                 name: "арбуз",
                 price: 114,
@@ -132,7 +132,7 @@ let Store = {
             },
             {
                 id: 15,
-                market: "pyatorochka",
+                market: "Пятёрочка",
                 category: "закуски",
                 name: "сухарики",
                 price: 24,
@@ -162,10 +162,10 @@ let Store = {
         return this._state.products
     },
     getPerekrostokProducts() {
-        return this._state.products.filter(product => product.market === "perekrostok")
+        return this._state.products.filter(product => product.market === "Перекрёсток")
     },
     getPyatorochkaProducts() {
-        return this._state.products.filter(product => product.market === "pyatorochka")
+        return this._state.products.filter(product => product.market === "Пятёрочка")
     },
     getShoppingBasket() {
         return this._state.shoppingBasket

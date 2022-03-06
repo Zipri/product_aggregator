@@ -6,10 +6,10 @@ import Navbar from "./components/Navbar/Navbar";
 import GroceryStore from "./components/common/GroceryStore/GroceryStore";
 import Products from "./components/Products/Products";
 import ShoppingBasket from "./components/ShoppingBasket/ShoppingBasket";
+import FavoriteProducts from "./components/FavoriteProducts/FavoriteProducts";
 import Notes from "./components/Notes/Notes";
 
 import './App.css';
-import FavoriteProducts from "./components/FavoriteProducts/FavoriteProducts";
 
 
 const App = (props) => {
@@ -43,6 +43,5 @@ const App = (props) => {
     </div>
 }
 //TODO добавить отображение в навбар при доавление в корзины или фавориты
-//TODO разобраться с инпуом для поиска
-//TODO сортировка для таблицы
+//TODO filter для таблицы
 export default App;
