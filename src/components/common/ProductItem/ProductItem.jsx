@@ -6,7 +6,6 @@ const Label = (props) => <div className={s.label}>
     <div className={s.description}>{props.description}</div>
     <div className={s.name}>{props.name}</div>
     {props.price && <div className={s.description}>₽</div>}
-    {props.items && <div className={s.description}>штук</div>}
 </div>
 
 const ProductItem = (props) => {
@@ -18,13 +17,13 @@ const ProductItem = (props) => {
     const changeFindCategory = () => {
         props.setFindInputCategory(props.category)
     }
-
+    debugger
     return <div className={s.item}>
         <img className={s.image} src={props.picture}/>
         <div className={s.info}>
-            <Label description="Название:" name={props.name} price={false} items={false}/>
-            <Label description="Цена:" name={props.price} price={true} items={false}/>
-            <Label description="Количество:" name={props.number} price={false} items={true}/>
+            <Label description="Название:" name={props.name} price={false}/>
+            <Label description="Цена:" name={props.price} price={true}/>
+            <Label description="Магазин:" name={props.market} price={false}/>
         </div>
         {props.flagBasket && <Button type="primary" onClick={deleteThisItem}>x</Button>}
         <div className={s.findButtons}>

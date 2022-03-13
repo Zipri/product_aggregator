@@ -33,13 +33,6 @@ const FavoriteProducts = (props) => {
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.price - b.price,
         },
-        {
-            title: 'Количество',
-            dataIndex: 'number',
-            key: 'number',
-            defaultSortOrder: 'descend',
-            sorter: (a, b) => a.number - b.number,
-        },
     ]
     const onChange = (sorter) => {console.log('params', sorter )}
     return <div className={s.favoriteProducts}>

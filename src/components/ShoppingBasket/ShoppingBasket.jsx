@@ -7,6 +7,7 @@ const ShoppingBasket = (props) => {
         {props.items.map(item => {
             commonPrice += item.item.price
             return <ProductItem name={item.item.name}
+                                market={item.item.market}
                                 price={item.item.price}
                                 number={item.item.number}
                                 picture={item.item.picture}

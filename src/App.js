@@ -4,7 +4,6 @@ import {Routes, Route} from "react-router-dom";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import GroceryStore from "./components/common/GroceryStore/GroceryStore";
-import Products from "./components/Products/Products";
 import ShoppingBasket from "./components/ShoppingBasket/ShoppingBasket";
 import FavoriteProducts from "./components/FavoriteProducts/FavoriteProducts";
 import Notes from "./components/Notes/Notes";

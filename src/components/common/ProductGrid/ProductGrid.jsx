@@ -7,7 +7,6 @@ const StringInfo = (props) => <div className={s.stringInfo}>
     <div className={s.description}>{props.description}</div>
     <div className={s.name}>{props.name}</div>
     {props.price && <div className={s.description}>₽</div>}
-    {props.items && <div className={s.description}>штук</div>}
 </div>
 
 const ProductCell = (props) => {
@@ -15,7 +14,8 @@ const ProductCell = (props) => {
         name: props.name,
         price: props.price,
         number: props.number,
-        picture: props.picture
+        picture: props.picture,
+        market: props.market
     })
     const addFavorite = () => props.addNewFavorite({
         name: props.name,
@@ -27,9 +27,9 @@ const ProductCell = (props) => {
     return <div className={s.productCell}>
         <img className={s.image} src={props.picture}/>
         <div className={s.info}>
-            <StringInfo description="Название:" name={props.name} price={false} items={false}/>
-            <StringInfo description="Цена:" name={props.price} price={true} items={false}/>
-            <StringInfo description="Количество:" name={props.number} price={false} items={true}/>
+            <StringInfo description="Название:" name={props.name} price={false}/>
+            <StringInfo description="Цена:" name={props.price} price={true}/>
+            <StringInfo description="Магазин:" name={props.market} price={false}/>
         </div>
         <Button type="primary"
                 className={s.addButton}

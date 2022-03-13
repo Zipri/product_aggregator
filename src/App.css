@@ -11,7 +11,7 @@
 .contentWrapper {
     grid-area: pageC;
     display: inline-block;
-    height: 95vh;
+    height: 90vh;
     overflow: auto;
 }
 
