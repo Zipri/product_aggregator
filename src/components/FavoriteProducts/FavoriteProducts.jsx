@@ -3,7 +3,6 @@ import s from './FavoriteProducts.module..css';
 import {Table} from "antd";
 
 const FavoriteProducts = (props) => {
-    const items = props.favorites.map(item => item.item)
     const columns = [
         {
             title: 'Магазин',
@@ -36,7 +35,7 @@ const FavoriteProducts = (props) => {
     ]
     const onChange = (sorter) => {console.log('params', sorter )}
     return <div className={s.favoriteProducts}>
-        <Table columns={columns} dataSource={items} onChange={onChange}/>
+        <Table columns={columns} dataSource={props.favorites} onChange={onChange}/>
     </div>
 };
 

@@ -17,13 +17,7 @@ const ProductCell = (props) => {
         picture: props.picture,
         market: props.market
     })
-    const addFavorite = () => props.addNewFavorite({
-        name: props.name,
-        price: props.price,
-        number: props.number,
-        category: props.category,
-        market: props.market
-    })
+    const addFavorite = () => props.addNewFavorite(props.id)
     return <div className={s.productCell}>
         <img className={s.image} src={props.picture}/>
         <div className={s.info}>
@@ -42,7 +36,8 @@ const ProductCell = (props) => {
 const ProductGrid = (props) => {
 
     const productColumns = props.products.map(product =>
-        <ProductCell name={product.name}
+        <ProductCell id={product.id}
+                     name={product.name}
                      price={product.price}
                      number={product.number}
                      picture={product.picture}

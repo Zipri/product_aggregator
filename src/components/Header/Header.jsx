@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './Header.css';
+import {NavLink} from "react-router-dom";
 
 
 const Header = (props) => {
@@ -23,9 +24,12 @@ const Header = (props) => {
     };
 
     return <div className="header">
-        <div className="logo">
-            Product Aggregator  <div onClick={changeLogo}>{logo}</div>
-        </div>
+
+        <NavLink to={"/"}>
+            <div className="logo">
+                Product Aggregator <div onClick={changeLogo}>{logo}</div>
+            </div>
+        </NavLink>
     </div>
 };
 
