@@ -1,24 +1,37 @@
 import React, {useState} from 'react';
-import {addNote} from "../../redux/product-reducer";
-import './Notes.css';
-import {Button} from "antd";
+import {Button, Input, List} from "antd";
+import s from './Notes.module.css';
+import {Navigate} from "react-router-dom";
 
 const Notes = (props) => {
-    let [notes, setNotes] = useState(props.notes)
-    let newNote = React.createRef()
+    const initialState = [
+        {id: 1, text: "Первая замтека самая лучшая"},
+        {id: 2, text: "Что разум человека может постигнуть и во что он может поверить, того он способен достичь"},
+        {id: 3, text: "Сложнее всего начать действовать, все остальное зависит только от упорства"},
+        {id: 4, text: "Надо любить жизнь больше, чем смысл жизни"},
+    ]
+    let [notes, setNotes] = useState(initialState)
+    let [writingNote, setWritingNote] = useState(null)
 
     const addNewNote = () => {
-        let noteText = newNote.current.value
-        setNotes([...notes, {id: 8, text: noteText}])
-        // props.dispatch(addNote(noteText))
+        setNotes([...notes, {id: 8, text: writingNote}])
+        setWritingNote(null)
     }
+    let data = notes.map(note => note.text).reverse()
 
-    return <div className="notes">
-        <div>
-            <textarea ref={newNote}/>
-            <Button type="primary" onClick={addNewNote}>+</Button>
+    if (!props.isAuth.isAuth) return <Navigate to="/login"/>
+    return <div className={s.notes}>
+        <div className={s.form}>
+            <Input value={writingNote}
+                   placeholder="Введите текст заметки..."
+                   onPressEnter={addNewNote}
+                   onChange={(e) => setWritingNote(e.target.value)}/>
+            <Button type="primary" onClick={addNewNote}>Добавить</Button>
         </div>
-        {notes.map(note => <div>{note.text}</div>)}
+        <List dataSource={data}
+              size="small"
+              bordered
+              renderItem={item => <List.Item>{item}</List.Item>}/>
     </div>
 };
 

@@ -1,3 +1,9 @@
-.home {
+.Block {
+    width: 600px;
+    height: min-content;
+    margin: auto;
+}
 
+.inside {
+    margin-top:30%;
 }

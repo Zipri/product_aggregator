@@ -1,26 +1,15 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {getAuth} from "firebase/auth";
-
-import {removeUser} from "../../redux/auth-reducer";
-
-;
-
+import s from "./Home.module.css"
 
 const Home = (props) => {
-    const auth = getAuth()
-    const handleOut = () => {
-        auth.signOut().then(props.removeUser())
-    }
-
-    return <div>
-        <h1>Добро пожаловать в Product Aggregator</h1>
-        <button onClick={handleOut}>
-            выйти
-        </button>
+    return <div className={s.Block}>
+        <div className={s.inside}>
+            <h1>Добро пожаловать в Product Aggregator</h1>
+            <text>
+                Данное веб-приложение является программной системы для сравнения стоимости продовольственной корзины у разных поставщиков.
+            </text>
+        </div>
     </div>
 };
 
-const mapStateToProps = (state) => ({})
-
-export default connect(mapStateToProps, {removeUser})(Home);
+export default Home;

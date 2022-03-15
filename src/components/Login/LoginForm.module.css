@@ -1,0 +1,10 @@
+.Block {
+    width: 500px;
+    height: min-content;
+    margin: auto;
+}
+
+.inside {
+    margin-top:25%;
+}
+

@@ -1,0 +1,34 @@
+.header {
+    grid-area: head;
+
+    background-color: #188ffe;
+    width: 100vw;
+    height: 50px;
+    display: grid;
+    grid-template-areas: "logo login";
+    grid-template-columns: 1fr 1fr;
+}
+
+.logo {
+    grid-area: logo;
+    color: azure;
+    padding-left: 23px;
+    font-family: fantasy;
+    font-variant: small-caps;
+    font-size: 32px;
+}
+
+.login {
+    grid-area: login;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.userInfo {
+
+}
+
+.exitButton {
+    height: 44px;
+}

@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 import GroceryStoreContainer from "./components/common/GroceryStore/GroceryStoreContainer";
 import ShoppingBasketContainer from "./components/ShoppingBasket/ShoppingBasketContainer";
 import FavoriteProductsContainer from "./components/FavoriteProducts/FavoriteProductsContainer";
+import Notes from "./components/Notes/Notes";
 
 import {setUser} from "./redux/auth-reducer";
 
@@ -40,7 +41,7 @@ class App extends React.Component {
 
     render() {
         return <div className="appWrapper">
-            <Header/>
+            <Header isAuth={this.isAuth()}/>
             <Navbar/>
             <div className="contentWrapper" id="element">
                 <Routes>
@@ -60,8 +61,8 @@ class App extends React.Component {
                            element={<ShoppingBasketContainer/>}/>
                     <Route path='/favoriteProducts'
                            element={<FavoriteProductsContainer isAuth={this.isAuth()}/>}/>
-                    {/*<Route path='/notes'*/}
-                    {/*       element={<Notes/>}/>*/}
+                    <Route path='/notes'
+                           element={<Notes isAuth={this.isAuth()}/>}/>
                 </Routes>
             </div>
         </div>

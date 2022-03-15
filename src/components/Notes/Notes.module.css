@@ -1,0 +1,12 @@
+.notes {
+    width: 500px;
+    height: min-content;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}

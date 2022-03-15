@@ -1,3 +1,11 @@
 .form {
+    width: 350px;
+}
 
+.myInput {
+    margin-bottom: 10px;
+}
+
+.button {
+    width: 350px;
 }

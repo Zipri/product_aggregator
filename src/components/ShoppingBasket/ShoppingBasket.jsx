@@ -50,11 +50,20 @@ const BasketA = (props) => {
 
 const ShoppingBasket = (props) => {
     return <div className={s.shoppingBasket}>
-        <Basket items={props.items}/>
-        <BasketA items={props.items}
-                 products={props.productsA}/>
-        <BasketA items={props.items}
-                 products={props.productsB}/>
+        <div className={s.userBasket}>
+            <h1>Ваша корзина:</h1>
+            <Basket items={props.items}/>
+        </div>
+        <div>
+            <h1>Пятёрочка:</h1>
+            <BasketA items={props.items}
+                     products={props.productsA}/>
+        </div>
+        <div>
+            <h1>Перекрёсток:</h1>
+            <BasketA items={props.items}
+                     products={props.productsB}/>
+        </div>
     </div>
 }
 
