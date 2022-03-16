@@ -40,6 +40,7 @@ class App extends React.Component {
     })
 
     render() {
+        if (!null) return console.log("true")
         return <div className="appWrapper">
             <Header isAuth={this.isAuth()}/>
             <Navbar/>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import {connect} from "react-redux";
-import {Button} from "antd";
 import {getAuth} from "firebase/auth";
 
 import {removeUser} from "../../redux/auth-reducer";
@@ -46,14 +45,12 @@ const Header = (props) => {
             {props.isAuth.isAuth
                 ? <div>
                     {props.isAuth.email}
-                    <Button type="primary"
-                            className={s.exitButton}
-                            onClick={handleOut}>Выйти</Button>
+                    <button className={s.exitButton}
+                            onClick={handleOut}>Выйти</button>
                 </div>
                 : <div>
-                    <Button type="primary"
-                            className={s.exitButton}
-                            onClick={redirect}>Войти</Button>
+                    <button className={s.loginButton}
+                            onClick={redirect}>Войти</button>
                 </div>}
         </div>
     </div>
