@@ -8,7 +8,7 @@ const FavoriteProductsContainer = (props) => {
     const personalProducts = props.products
     const favoriteProducts = personalProducts.filter(item => item.isFavorite)
 
-    if (!props.isAuth.isAuth) return <Navigate to="/login"/>
+    if (!props.user) return <Navigate to="/login"/>
     return <FavoriteProducts favorites={favoriteProducts}/>
 };
 

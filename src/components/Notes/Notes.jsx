@@ -17,9 +17,9 @@ const Notes = (props) => {
         setNotes([...notes, {id: 8, text: writingNote}])
         setWritingNote(null)
     }
-    let data = notes.map(note => note.text).reverse()
 
-    if (!props.isAuth.isAuth) return <Navigate to="/login"/>
+    let data = notes.map(note => note.text).reverse()
+    if (!props.user) return <Navigate to="/login"/>
     return <div className={s.notes}>
         <div className={s.form}>
             <Input value={writingNote}

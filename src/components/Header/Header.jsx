@@ -1,19 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
-import {connect} from "react-redux";
-import {getAuth} from "firebase/auth";
 
-import {removeUser} from "../../redux/auth-reducer";
+import {Context} from "../../firebase/firebase";
+
 import s from './Header.module.css';
 
 
 const Header = (props) => {
     let [logo, setLogo] = useState("🍞")
     const navigate = useNavigate()
-    const auth = getAuth()
+    const {auth} = useContext(Context)
 
     const handleOut = () => {
-        auth.signOut().then(props.removeUser())
+        auth.signOut()
     }
 
     const redirect = () => navigate("/login")
@@ -42,9 +41,9 @@ const Header = (props) => {
             </div>
         </NavLink>
         <div className={s.login}>
-            {props.isAuth.isAuth
+            {props.user
                 ? <div>
-                    {props.isAuth.email}
+                    {props.user.email}
                     <button className={s.exitButton}
                             onClick={handleOut}>Выйти</button>
                 </div>
@@ -56,5 +55,4 @@ const Header = (props) => {
     </div>
 };
 
-const mapStateToProps = (state) => ({})
-export default connect(mapStateToProps, {removeUser})(Header);
+export default Header;

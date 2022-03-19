@@ -7,6 +7,7 @@ import './firebase/firebase'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from "./redux/redux-store";
+import {auth, Context, firestore, firebaseApp} from "./firebase/firebase";
 
 import './index.css';
 
@@ -14,9 +15,11 @@ import './index.css';
 ReactDOM.render(<React.StrictMode>
 
     <BrowserRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
+        <Context.Provider value={{auth, firestore, firebaseApp}}>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </Context.Provider>
     </BrowserRouter>
 
 </React.StrictMode>, document.getElementById('root'));
