@@ -14,11 +14,12 @@ import Notes from "./components/Notes/Notes";
 import {Context} from "./firebase/firebase";
 
 import './App.css';
+import NotesContainer from "./components/Notes/NotesContainer";
 
 
 const App = () => {
-    const { auth } = useContext(Context)
-    const [ user, loading, error ] = useAuthState(auth)
+    const {auth} = useContext(Context)
+    const [user, loading, error] = useAuthState(auth)
 
     return <div className="appWrapper">
         <Header user={user}/>
@@ -40,9 +41,9 @@ const App = () => {
                 <Route path='/shoppingBasket'
                        element={<ShoppingBasketContainer/>}/>
                 <Route path='/favoriteProducts'
-                       element={<FavoriteProductsContainer user={user}/>}/>
+                       element={<FavoriteProductsContainer loading={loading} user={user}/>}/>
                 <Route path='/notes'
-                       element={<Notes user={user}/>}/>
+                       element={<NotesContainer loading={loading} user={user}/>}/>
             </Routes>
         </div>
     </div>

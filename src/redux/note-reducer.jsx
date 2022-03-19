@@ -1,3 +1,5 @@
+import {firestore} from "../firebase/firebase";
+
 const SET_NOTES = 'notes/SET_NOTES';
 
 let initialState = {
@@ -17,7 +19,7 @@ export default noteReducer;
 
 export const setNotes = (notes) => ({type: SET_NOTES, notes})
 
-export const getNotesTC = (userID) => (dispatch) => {
-    const notes = null
+export const getNotesTC = () => (dispatch) => {
+    const notes = firestore.collection('notes')
     dispatch(setNotes(notes))
 }

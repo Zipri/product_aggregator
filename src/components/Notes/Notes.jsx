@@ -1,25 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Input, List} from "antd";
 import s from './Notes.module.css';
-import {Navigate} from "react-router-dom";
+import Preloader from "../common/Preloader/Preloader";
 
 const Notes = (props) => {
-    const initialState = [
-        {id: 1, text: "Первая замтека самая лучшая"},
-        {id: 2, text: "Что разум человека может постигнуть и во что он может поверить, того он способен достичь"},
-        {id: 3, text: "Сложнее всего начать действовать, все остальное зависит только от упорства"},
-        {id: 4, text: "Надо любить жизнь больше, чем смысл жизни"},
-    ]
-    let [notes, setNotes] = useState(initialState)
     let [writingNote, setWritingNote] = useState(null)
 
     const addNewNote = () => {
-        setNotes([...notes, {id: 8, text: writingNote}])
+        props.addNewNote(writingNote)
         setWritingNote(null)
     }
 
-    let data = notes.map(note => note.text).reverse()
-    if (!props.user) return <Navigate to="/login"/>
     return <div className={s.notes}>
         <div className={s.form}>
             <Input value={writingNote}
@@ -28,10 +19,13 @@ const Notes = (props) => {
                    onChange={(e) => setWritingNote(e.target.value)}/>
             <Button type="primary" onClick={addNewNote}>Добавить</Button>
         </div>
-        <List dataSource={data}
-              size="small"
-              bordered
-              renderItem={item => <List.Item>{item}</List.Item>}/>
+        {props.notes
+            ? <List dataSource={props.notes.map(note => note.text).reverse()}
+                    size="small"
+                    bordered
+                    renderItem={item => <List.Item>{item}</List.Item>}/>
+            : <Preloader/>
+        }
     </div>
 };
 

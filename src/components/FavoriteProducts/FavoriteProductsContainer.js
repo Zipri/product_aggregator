@@ -3,11 +3,13 @@ import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 
 import FavoriteProducts from "./FavoriteProducts";
+import Preloader from "../common/Preloader/Preloader";
 
 const FavoriteProductsContainer = (props) => {
     const personalProducts = props.products
     const favoriteProducts = personalProducts.filter(item => item.isFavorite)
 
+    if (props.loading) return <Preloader/>
     if (!props.user) return <Navigate to="/login"/>
     return <FavoriteProducts favorites={favoriteProducts}/>
 };
