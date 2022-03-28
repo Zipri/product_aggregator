@@ -16,7 +16,6 @@ let reducers = combineReducers({
     notes: noteReducer
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore}))));
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export default store;
