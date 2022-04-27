@@ -29,6 +29,12 @@ const Header = (props) => {
                 return setLogo("🌯")
             case "🌯":
                 return setLogo("🍒")
+            case "🍒":
+                return setLogo("🍤")
+            case "🍤":
+                return setLogo("🍕")
+            case "🍕":
+                return setLogo("🍦")
             default:
                 return setLogo("🍞")
         }
@@ -36,8 +42,8 @@ const Header = (props) => {
 
     return <div className={s.header}>
         <NavLink to={"/"}>
-            <div className={s.logo}>
-                Product Aggregator <a onClick={changeLogo}>{logo}</a>
+            <div className={s.logo} onClick={changeLogo}>
+                Product Aggregator <a>{logo}</a>
             </div>
         </NavLink>
         <div className={s.login}>

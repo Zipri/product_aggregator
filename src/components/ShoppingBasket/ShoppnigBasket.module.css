@@ -8,4 +8,18 @@
 
 .userBasket {
     margin-right: 100px;
+    display: flex;
+}
+
+.dividerH {
+    width: 100%;
+    border: solid 0.01rem #188efd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.dividerV {
+    height: 100%;
+    border: solid 0.01rem #188efd;
+    margin-left: 80px;
 }

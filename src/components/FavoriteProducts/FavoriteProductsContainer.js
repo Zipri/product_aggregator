@@ -1,22 +1,21 @@
-import React from "react";
-import {connect} from "react-redux";
+import React, {useContext} from "react";
 import {Navigate} from "react-router-dom";
+import {useCollectionData} from "react-firebase-hooks/firestore";
 
 import FavoriteProducts from "./FavoriteProducts";
 import Preloader from "../common/Preloader/Preloader";
+import {Context} from "../../firebase/firebase";
 
 const FavoriteProductsContainer = (props) => {
-    const personalProducts = props.products
-    const favoriteProducts = personalProducts.filter(item => item.isFavorite)
+    const {firebaseApp, auth, firestore} = useContext(Context)
+    const [favorites, loading] = useCollectionData(
+        firestore.collection('favorites').where('uid', '==', props.user.uid)
+    )
 
-    if (props.loading) return <Preloader/>
+
     if (!props.user) return <Navigate to="/login"/>
-    return <FavoriteProducts favorites={favoriteProducts}/>
+    if (loading) return <Preloader/>
+    return <FavoriteProducts favorites={favorites}/>
 };
 
-let mapStateToProps = (state) => ({
-    products: state.products.products,
-});
-
-
-export default connect(mapStateToProps, {})(FavoriteProductsContainer);
+export default FavoriteProductsContainer;

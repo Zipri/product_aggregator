@@ -10,17 +10,18 @@ import Navbar from "./components/Navbar/Navbar";
 import GroceryStoreContainer from "./components/common/GroceryStore/GroceryStoreContainer";
 import ShoppingBasketContainer from "./components/ShoppingBasket/ShoppingBasketContainer";
 import FavoriteProductsContainer from "./components/FavoriteProducts/FavoriteProductsContainer";
-import Notes from "./components/Notes/Notes";
 import {Context} from "./firebase/firebase";
+import NotesContainer from "./components/Notes/NotesContainer";
+import Preloader from "./components/common/Preloader/Preloader";
 
 import './App.css';
-import NotesContainer from "./components/Notes/NotesContainer";
 
 
 const App = () => {
     const {auth} = useContext(Context)
     const [user, loading, error] = useAuthState(auth)
 
+    if (loading) return <Preloader/>
     return <div className="appWrapper">
         <Header user={user}/>
         <Navbar/>
@@ -33,15 +34,15 @@ const App = () => {
                 <Route path='/registration'
                        element={<RegistrationForm/>}/>
                 <Route path='/marketA'
-                       element={<GroceryStoreContainer market="mA"/>}/>
+                       element={<GroceryStoreContainer market="mA" user={user}/>}/>
                 <Route path='/marketB'
-                       element={<GroceryStoreContainer market="mB"/>}/>
+                       element={<GroceryStoreContainer market="mB" user={user}/>}/>
                 <Route path='/products'
-                       element={<GroceryStoreContainer market="all"/>}/>
+                       element={<GroceryStoreContainer market="all" user={user}/>}/>
                 <Route path='/shoppingBasket'
                        element={<ShoppingBasketContainer/>}/>
                 <Route path='/favoriteProducts'
-                       element={<FavoriteProductsContainer loading={loading} user={user}/>}/>
+                       element={<FavoriteProductsContainer user={user}/>}/>
                 <Route path='/notes'
                        element={<NotesContainer loading={loading} user={user}/>}/>
             </Routes>

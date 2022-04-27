@@ -14,8 +14,8 @@ const Item = (props) => <div>
 
 const Navbar = (props) => <Menu mode="inline">
     <SubMenu title="Магазины">
-        <Menu.Item key="1"><Item url="marketA" name="Магазин №1"/></Menu.Item>
-        <Menu.Item key="2"><Item url="marketB" name="Магазин №2"/></Menu.Item>
+        <Menu.Item key="1"><Item url="marketA" name="ВкусВилл"/></Menu.Item>
+        <Menu.Item key="2"><Item url="marketB" name="Перекрёсток"/></Menu.Item>
     </SubMenu>
     <Menu.Item key="3"><Item url="products" name="Все продукты"/></Menu.Item>
     <Menu.Item key="4"><Item url="shoppingBasket" name="Продуктовая корзина"/></Menu.Item>

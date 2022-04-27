@@ -12,6 +12,41 @@
 .radioButtons {
     margin-left: 20px;
     margin-top: 20px;
+
     text-align: center;
-    width: 90px;
+    width: 180px;
+}
+
+.text {
+    width: 150px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.settings {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 180px;
+}
+
+.setButtons {
+    margin-top: 5px;
+    display: flex;
+}
+
+.decButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
+    margin-right: 10px;
+}
+
+.incButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
 }

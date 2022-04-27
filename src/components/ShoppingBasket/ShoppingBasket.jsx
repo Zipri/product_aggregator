@@ -51,15 +51,17 @@ const BasketA = (props) => {
 const ShoppingBasket = (props) => {
     return <div className={s.shoppingBasket}>
         <div className={s.userBasket}>
-            <h1>Ваша корзина:</h1>
-            <Basket items={props.items}/>
+            <div>
+                <h1>Ваша корзина:</h1>
+                <Basket items={props.items}/>
+            </div>
+            <div className={s.dividerV}/>
         </div>
         <div>
             <h1>Пятёрочка:</h1>
             <BasketA items={props.items}
                      products={props.productsA}/>
-        </div>
-        <div>
+            <div className={s.dividerH}/>
             <h1>Перекрёсток:</h1>
             <BasketA items={props.items}
                      products={props.productsB}/>

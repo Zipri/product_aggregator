@@ -1,6 +1,6 @@
 import React from 'react';
-import s from './FavoriteProducts.module..css';
 import {Table} from "antd";
+import s from './FavoriteProducts.module..css';
 
 const FavoriteProducts = (props) => {
     const columns = [
@@ -20,13 +20,13 @@ const FavoriteProducts = (props) => {
         },
         {
             title: 'Название',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'title',
+            key: 'title',
             defaultSortOrder: 'descend',
-            sorter: (a, b) => a.name.length - b.name.length,
+            sorter: (a, b) => a.title.length - b.title.length,
         },
         {
-            title: 'Цена',
+            title: 'Цена (руб.)',
             dataIndex: 'price',
             key: 'price',
             defaultSortOrder: 'descend',
