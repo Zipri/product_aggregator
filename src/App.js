@@ -40,7 +40,7 @@ const App = () => {
                 <Route path='/products'
                        element={<GroceryStoreContainer market="all" user={user}/>}/>
                 <Route path='/shoppingBasket'
-                       element={<ShoppingBasketContainer/>}/>
+                       element={<ShoppingBasketContainer user={user}/>}/>
                 <Route path='/favoriteProducts'
                        element={<FavoriteProductsContainer user={user}/>}/>
                 <Route path='/notes'

@@ -2,69 +2,65 @@ import React from 'react';
 import ProductItem from "../common/ProductItem/ProductItem";
 
 import s from "../ShoppingBasket/ShoppnigBasket.module.css"
+import getCategoryImage from "../common/categoryPictures/getCategoryImage";
 
-const Basket = (props) => {
+const MyBasket = (props) => {
     let commonPrice = 0;
     return <div>
         {props.items.map(item => {
-            commonPrice += item.item.price
-            return <ProductItem name={item.item.name}
-                                market={item.item.market}
-                                price={item.item.price}
-                                number={item.item.number}
-                                picture={item.item.picture}
-                                productId={item.id}
-                                deleteItem={props.deleteItem}
-                                flagBasket={true}/>
+            commonPrice += Number(item.price)
+            return <ProductItem name={item.title}
+                                price={item.price}
+                                picture={item.image}
+                                market={item.market}
+                                productId={item.article}
+                                deleteFromBasket={props.deleteFromBasket}/>
         })}
         {props.items.length
-            ? <div>Итоговая сумма: {commonPrice} ₽</div>
+            ? <div>Итоговая сумма: {Math.ceil(commonPrice)} ₽</div>
             : <div>Вы ещё не добавили товаров в корзину</div>}
     </div>
 }
 
-const BasketA = (props) => {
+const BasketStore = (props) => {
     let commonPrice = 0;
     return <div>
         {props.products.map(product =>
             props.items.map(item => {
-                    if (item.item.name === product.name) {
-                        commonPrice += product.price
-                        return <ProductItem name={product.name}
-                                            market={product.market}
-                                            price={product.price}
-                                            number={product.number}
-                                            picture={product.picture}
-                                            deleteItem={props.deleteItem}
-                                            flagBasket={true}/>
+                    if (item.title === product.Title) {
+                        commonPrice += Number(product.Price)
+                        return <ProductItem name={product.Title}
+                                            market={product.Market}
+                                            price={product.Price}
+                                            picture={getCategoryImage(product.Category)}/>
                     }
                 }
             )
         )}
         {props.items.length
-            ? <div>Итоговая сумма: {commonPrice} ₽</div>
+            ? <div>Итоговая сумма: {Math.ceil(commonPrice)} ₽</div>
             : <div>Вы ещё не добавили товаров в корзину</div>}
     </div>
 }
-//TODO сделай в одну компоненту :)
 
 const ShoppingBasket = (props) => {
     return <div className={s.shoppingBasket}>
         <div className={s.userBasket}>
             <div>
                 <h1>Ваша корзина:</h1>
-                <Basket items={props.items}/>
+                <MyBasket items={props.items}
+                          deleteFromBasket={props.deleteFromBasket}/>
             </div>
             <div className={s.dividerV}/>
         </div>
         <div>
-            <h1>Пятёрочка:</h1>
-            <BasketA items={props.items}
-                     products={props.productsA}/>
+            <h1>ВкусВилл:</h1>
+            <BasketStore items={props.items}
+                         products={props.productsA}/>
             <div className={s.dividerH}/>
             <h1>Перекрёсток:</h1>
-            <BasketA items={props.items}
-                     products={props.productsB}/>
+            <BasketStore items={props.items}
+                         products={props.productsB}/>
         </div>
     </div>
 }

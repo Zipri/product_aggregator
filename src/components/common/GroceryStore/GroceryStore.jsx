@@ -25,11 +25,13 @@ const GroceryStore = (props) => {
         <ProductGrid products={products}
                      favorites={props.favorites}
                      columns={columns}
-                     addItem={props.addItem}
                      deleteFavorite={props.deleteFavorite}
                      addNewFavorite={props.addNewFavorite}
                      clear={clear}
-                     findByName={findByName}/>
+                     findByName={findByName}
+                     basketItems={props.basketItems}
+                     addToBasket={props.addToBasket}
+                     deleteFromBasket={props.deleteFromBasket}/>
         <ProductFilter categories={[...new Set(categories)]}
                        findByCategory={findByCategory}
                        columns={columns}

@@ -11,13 +11,21 @@ const StringInfo = (props) => <div className={props.title ? s.info : s.stringInf
 </div>
 
 const ProductCell = (props) => {
-    const addItem = () => props.addItem({
-        name: props.name,
-        price: props.price,
-        number: props.number,
-        market: props.market,
-        picture: getCategoryImage(props.category),
-    })
+    const addNewFavorite = () => props.addNewFavorite(
+        props.id,
+        props.market,
+        props.category,
+        props.name,
+        props.price
+    )
+    const addToBasket = () => props.addToBasket(
+        props.id,
+        props.market,
+        props.category,
+        props.name,
+        props.price,
+        getCategoryImage(props.category)
+    )
 
     return <div className={s.productCell}>
         <img className={s.image} src={getCategoryImage(props.category)}/>
@@ -34,21 +42,19 @@ const ProductCell = (props) => {
             <StringInfo description="Цена:" name={props.price} price={true}/>
             <StringInfo description="Магазин:" name={props.market}/>
         </div>
-        <Button type="primary"
-                className={s.addButton}
-                onClick={addItem}>Добавить в корзину</Button>
+        {props.basketItems.includes(props.id)
+            ? <Button danger
+                      className={s.addButton}
+                      onClick={() => props.deleteFromBasket(props.id)}>Удалить из корзины</Button>
+            : <Button type="primary"
+                      className={s.addButton}
+                      onClick={addToBasket}>Добавить в корзину</Button>}
         {props.favorites.includes(props.id)
             ? <Button danger
                       className={s.addButton}
                       onClick={() => props.deleteFavorite(props.id)}>Удалить из избраного</Button>
             : <Button className={s.addButton}
-                      onClick={() => props.addNewFavorite(
-                          props.id,
-                          props.market,
-                          props.category,
-                          props.name,
-                          props.price
-                      )}>Добавить в избраное</Button>}
+                      onClick={addNewFavorite}>Добавить в избраное</Button>}
     </div>
 }
 
@@ -59,14 +65,16 @@ const ProductGrid = (props) => {
                      price={product.Price}
                      picture={product.Image}
                      category={product.Category}
-                     market={product.Composition
+                     market={product.Description || product.Composition
                          ? "ВкусВилл"
                          : "Перекрёсток"
                      }
-                     addItem={props.addItem}
                      favorites={props.favorites}
                      deleteFavorite={props.deleteFavorite}
-                     addNewFavorite={props.addNewFavorite}/>)
+                     addNewFavorite={props.addNewFavorite}
+                     basketItems={props.basketItems}
+                     addToBasket={props.addToBasket}
+                     deleteFromBasket={props.deleteFromBasket}/>)
 
     const columns = props.columns;
     const rowsNumber = Math.ceil(productColumns.length / columns)
