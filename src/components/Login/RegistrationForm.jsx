@@ -18,7 +18,7 @@ const RegistrationForm = (props) => {
 
     return <div className={s.Block}>
         <div className={s.inside}>
-            <h1>Зарегистироваться</h1>
+            <h1>Зарегистироваться:</h1>
             <SimpleForm title="Зарегистрироваться"
                         handleEmail={handleRegistrationEmail}
                         registration={true}/>

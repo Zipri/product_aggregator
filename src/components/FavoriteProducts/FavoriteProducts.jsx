@@ -1,6 +1,8 @@
 import React from 'react';
-import {Table} from "antd";
+import {Button, Table} from "antd";
 import s from './FavoriteProducts.module..css';
+
+
 
 const FavoriteProducts = (props) => {
     const columns = [
@@ -32,8 +34,22 @@ const FavoriteProducts = (props) => {
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.price - b.price,
         },
+        {
+            title: 'Удалить',
+            dataIndex: 'favorite',
+            key: 'favorite',
+            render: (text, record) => {
+                return <Button
+                    className={s.delButton}
+                    onClick={() => props.deleteFromFavorite(record.article)}>
+                    ✖
+                </Button>
+            }
+        },
     ]
-    const onChange = (sorter) => {console.log('params', sorter )}
+    const onChange = (sorter) => {
+        console.log('params', sorter)
+    }
     return <div className={s.favoriteProducts}>
         <Table columns={columns} dataSource={props.favorites} onChange={onChange}/>
     </div>

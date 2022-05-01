@@ -6,7 +6,7 @@ import ProductFilter from "./ProductFilter";
 const GroceryStore = (props) => {
     let [columns, setColumns] = useState(4)
     let [products, setProducts] = useState(props.products)
-    useEffect(() => setProducts(props.products), [props.products])
+    useEffect(() => {setProducts(props.products)}, [props.products])
     const findByName = (value) => {
         setProducts(props.products.filter(product => !product.Title.toLowerCase().indexOf(value.toLowerCase())))
     }
@@ -31,7 +31,9 @@ const GroceryStore = (props) => {
                      findByName={findByName}
                      basketItems={props.basketItems}
                      addToBasket={props.addToBasket}
-                     deleteFromBasket={props.deleteFromBasket}/>
+                     deleteFromBasket={props.deleteFromBasket}
+                     isAll={props.isAll}
+                     getMore={props.getMore}/>
         <ProductFilter categories={[...new Set(categories)]}
                        findByCategory={findByCategory}
                        columns={columns}

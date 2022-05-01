@@ -40,7 +40,7 @@ const ProductCell = (props) => {
                 }
             </div>
             <StringInfo description="Цена:" name={props.price} price={true}/>
-            <StringInfo description="Магазин:" name={props.market}/>
+            {props.isAll && <StringInfo description="Магазин:" name={props.market}/>}
         </div>
         {props.basketItems.includes(props.id)
             ? <Button danger
@@ -74,12 +74,18 @@ const ProductGrid = (props) => {
                      addNewFavorite={props.addNewFavorite}
                      basketItems={props.basketItems}
                      addToBasket={props.addToBasket}
-                     deleteFromBasket={props.deleteFromBasket}/>)
+                     deleteFromBasket={props.deleteFromBasket}
+                     isAll={props.isAll}/>)
 
     const columns = props.columns;
     const rowsNumber = Math.ceil(productColumns.length / columns)
     const productRows = [...Array(rowsNumber)]
         .map((item, number) => productColumns.slice(number * columns, (number + 1) * columns))
+
+    const getMore = () => {
+        const lastEl = props.products.slice(-1)
+        props.getMore(lastEl[0].Article)
+    }
 
     return <div className={s.productGrid}>
         <div className={s.searchForm}>
@@ -94,6 +100,11 @@ const ProductGrid = (props) => {
         {productRows.map(row => <div className={s.productRow}>
             {row.map(cell => cell)}
         </div>)}
+        <div className={s.more}>
+            <Button className={s.moreButton}
+                    onClick={getMore}
+                    type="primary">Больше товаров</Button>
+        </div>
     </div>
 }
 

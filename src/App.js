@@ -24,7 +24,7 @@ const App = () => {
     if (loading) return <Preloader/>
     return <div className="appWrapper">
         <Header user={user}/>
-        <Navbar/>
+        <Navbar user={user}/>
         <div className="contentWrapper" id="element">
             <Routes>
                 <Route path='/'

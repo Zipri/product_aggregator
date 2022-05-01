@@ -11,11 +11,12 @@ const Header = (props) => {
     const navigate = useNavigate()
     const {auth} = useContext(Context)
 
+    const redirect = () => navigate("/login")
+
     const handleOut = () => {
         auth.signOut()
+        redirect()
     }
-
-    const redirect = () => navigate("/login")
 
     const changeLogo = () => {
         switch (logo) {
@@ -46,18 +47,20 @@ const Header = (props) => {
                 Product Aggregator <a>{logo}</a>
             </div>
         </NavLink>
-        <div className={s.login}>
-            {props.user
-                ? <div>
-                    {props.user.email}
-                    <button className={s.exitButton}
-                            onClick={handleOut}>Выйти</button>
-                </div>
-                : <div>
-                    <button className={s.loginButton}
-                            onClick={redirect}>Войти</button>
-                </div>}
-        </div>
+        {props.user
+            ? <div className={s.login}>
+                <a className={s.userName}>
+                    {props.user.displayName ? props.user.displayName : props.user.email}
+                </a>
+                <button className={s.exitButton}
+                        onClick={handleOut}>Выйти
+                </button>
+            </div>
+            : <div className={s.login}>
+                <button className={s.loginButton}
+                        onClick={redirect}>Войти
+                </button>
+            </div>}
     </div>
 };
 

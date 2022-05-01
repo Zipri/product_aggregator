@@ -37,9 +37,13 @@ const SimpleForm = (props) => {
         <Button type="primary" onClick={signInEmail} className={s.button}>
             {props.title}
         </Button>
-        <Button type="primary" onClick={handleLoginGoogle} className={s.button}>
-            Войти с помощью Google
-        </Button>
+        {props.registration
+            ? <Button type="primary" onClick={handleLoginGoogle} className={s.button}>
+                Зарегистрироваться с помощью Google
+            </Button>
+            : <Button type="primary" onClick={handleLoginGoogle} className={s.button}>
+                Войти с помощью Google
+            </Button>}
     </div>
 };
 

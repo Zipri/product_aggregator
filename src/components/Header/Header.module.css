@@ -19,6 +19,7 @@
 }
 
 .login {
+    height: 50px;
     grid-area: login;
     display: flex;
     align-items: center;
@@ -34,7 +35,7 @@
     width: 60px;
     margin-left: 10px;
     background-color: #188ffe;
-    border: 0px;
+    border: 0;
     color: white;
     cursor: pointer;
 }
@@ -48,11 +49,19 @@
     width: 60px;
     margin-left: 10px;
     background-color: #188ffe;
-    border: 0px;
+    border: 0;
     color: white;
     cursor: pointer;
 }
 
 .loginButton:hover {
     background-color: #57db39;
+}
+
+.userName {
+    height: 50px;
+    margin-right: 10px;
+    color: #8ee0ff;
+    font-size: 30px;
+    font-weight: bold;
 }

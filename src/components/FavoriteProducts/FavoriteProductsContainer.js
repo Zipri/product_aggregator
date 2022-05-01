@@ -11,11 +11,15 @@ const FavoriteProductsContainer = (props) => {
     const [favorites, loading] = useCollectionData(
         firestore.collection('favorites').where('uid', '==', props.user.uid)
     )
-
+    const deleteFromFavorite = (article) => {
+        const docId = props.user.uid+article
+        firestore.collection('favorites').doc(docId).delete()
+    }
 
     if (!props.user) return <Navigate to="/login"/>
     if (loading) return <Preloader/>
-    return <FavoriteProducts favorites={favorites}/>
+    return <FavoriteProducts favorites={favorites}
+                             deleteFromFavorite={deleteFromFavorite}/>
 };
 
 export default FavoriteProductsContainer;
