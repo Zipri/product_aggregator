@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
-import { getDocs } from "firebase/firestore";
 
 import GroceryStore from "./GroceryStore";
 import {Context} from "../../../firebase/firebase";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import Preloader from "../Preloader/Preloader";
+import {connect} from "react-redux";
+import {getMorePerekrostokData, getPerekrostokData, getVkussvillData} from "../../../redux/grocery-reducer";
 
 const AStoreContainer = (props) => {
     const {firebaseApp, auth, firestore} = useContext(Context)
@@ -40,16 +41,26 @@ const BStoreContainer = (props) => {
         firestore.collection('perekrostok').limit(2)
     )
 
-    return loadingP
+    useEffect(() => {
+        if (props.perekrostok.length === 0)  props.getPerekrostokData()
+    }, [])
+
+
+    const getMore = (article) => {
+        props.getMorePerekrostokData(article)
+    }
+
+    return props.loading
         ? <Preloader/>
-        : <GroceryStore products={perekrostok}
+        : <GroceryStore products={props.perekrostok}
                         favorites={props.favorites.map(item => item.article)}
                         addNewFavorite={props.addToFavorite}
                         deleteFavorite={props.deleteFromFavorite}
                         basketItems={props.basketItems.map(item => item.article)}
                         addToBasket={props.addToBasket}
                         deleteFromBasket={props.deleteFromBasket}
-                        isAll={props.isAll}/>
+                        isAll={props.isAll}
+                        getMore={getMore}/>
 }
 
 const AllStoreContainer = (props) => {
@@ -134,7 +145,11 @@ const GroceryStoreContainer = (props) => {
                                     basketItems={basketItems.map(item => item.article)}
                                     addToBasket={addToBasket}
                                     deleteFromBasket={deleteFromBasket}
-                                    isAll={isAll}/>
+                                    isAll={isAll}
+                                    getPerekrostokData={props.getPerekrostokData}
+                                    getMorePerekrostokData={props.getMorePerekrostokData}
+                                    perekrostok={props.perekrostok}
+                                    loading={props.loading}/>
         case "all":
             return <AllStoreContainer favorites={favorites.map(item => item.article)}
                                       addNewFavorite={addToFavorite}
@@ -146,4 +161,12 @@ const GroceryStoreContainer = (props) => {
     }
 };
 
-export default GroceryStoreContainer;
+let mapStateToProps = (state) => ({
+    perekrostok: state.groceryPage.perekrostok,
+    loading: state.groceryPage.loading,
+});
+
+export default connect(mapStateToProps, {
+    getPerekrostokData,
+    getMorePerekrostokData
+})(GroceryStoreContainer);

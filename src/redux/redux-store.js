@@ -1,17 +1,13 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
-import thunk from "redux-thunk";
-
-import {getFirebase} from "react-redux-firebase";
-import {getFirestore} from "redux-firestore";
 
 import shoppingBasketReducer from "./shoppingBasket-reducer";
-import productReducer from "./product-reducer";
 import noteReducer from "./note-reducer";
+import groceryReducer from "./grocery-reducer";
 
 
 let reducers = combineReducers({
-    products: productReducer,
+    groceryPage: groceryReducer,
     shoppingBasketPage: shoppingBasketReducer,
     notes: noteReducer
 });
