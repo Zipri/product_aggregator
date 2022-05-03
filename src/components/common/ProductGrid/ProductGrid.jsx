@@ -4,13 +4,17 @@ import Search from "antd/es/input/Search";
 import s from './ProductGrid.module.css';
 import getCategoryImage from "../categoryPictures/getCategoryImage";
 
-const StringInfo = (props) => <div className={props.title ? s.info : s.stringInfo}>
-    <div className={s.description}>{props.description}</div>
-    <div className={s.name}>{props.name}</div>
-    {props.price && <div className={s.description}>₽</div>}
+const StringInfo = (props) => <div>
+    {props.price
+        ? <div className={s.stringInfo}>
+            <div className={s.price}>{props.name}</div>
+            <div className={s.description}>₽</div>
+        </div>
+        : <div className={s.name}>{props.name}</div>}
 </div>
 
 const ProductCell = (props) => {
+
     const addNewFavorite = () => props.addNewFavorite(
         props.id,
         props.market,
@@ -28,20 +32,22 @@ const ProductCell = (props) => {
     )
 
     return <div className={s.productCell}>
+
         <img className={s.image} src={getCategoryImage(props.category)}/>
+
         <div className={s.info}>
             <div className={s.title}>
-                {props.name.length < 42
-                    ? <StringInfo description="Название:" name={props.name} title={true}/>
+                {props.name.length < 39
+                    ? <StringInfo name={props.name} title={true}/>
                     : <Tooltip title={props.name}>
-                        <div><StringInfo description="Название:"
-                                         name={props.name.substring(0, 41) + "..."} title={true}/></div>
+                        <div><StringInfo name={props.name.substring(0, 38) + "..."} title={true}/></div>
                     </Tooltip>
                 }
             </div>
-            <StringInfo description="Цена:" name={props.price} price={true}/>
+            <StringInfo name={props.price} price={true}/>
             {props.isAll && <StringInfo description="Магазин:" name={props.market}/>}
         </div>
+
         {props.basketItems.includes(props.id)
             ? <Button danger
                       className={s.addButton}
@@ -69,12 +75,15 @@ const ProductGrid = (props) => {
                          ? "ВкусВилл"
                          : "Перекрёсток"
                      }
+
                      favorites={props.favorites}
                      deleteFavorite={props.deleteFavorite}
                      addNewFavorite={props.addNewFavorite}
+
                      basketItems={props.basketItems}
                      addToBasket={props.addToBasket}
                      deleteFromBasket={props.deleteFromBasket}
+
                      isAll={props.isAll}/>)
 
     const columns = props.columns;
@@ -83,11 +92,11 @@ const ProductGrid = (props) => {
         .map((item, number) => productColumns.slice(number * columns, (number + 1) * columns))
 
     const getMore = () => {
-        const lastEl = props.products.slice(-1)
-        props.getMore(lastEl[0].Article)
+        props.getMore()
     }
 
     return <div className={s.productGrid}>
+
         <div className={s.searchForm}>
             <Search placeholder="Поиск по названию"
                     onSearch={props.findByName}
@@ -97,14 +106,17 @@ const ProductGrid = (props) => {
                     onClick={props.clear}>✖
             </button>
         </div>
+
         {productRows.map(row => <div className={s.productRow}>
             {row.map(cell => cell)}
         </div>)}
+
         <div className={s.more}>
             <Button className={s.moreButton}
                     onClick={getMore}
                     type="primary">Больше товаров</Button>
         </div>
+
     </div>
 }
 

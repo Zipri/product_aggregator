@@ -43,12 +43,20 @@
 }
 
 .title {
+    margin-top: 5px;
     width: 100%;
-    height: 70px;
+    height: 55px;
 }
 
 .stringInfo {
+    width: 80px;
+
     display: flex;
+    justify-content: center;
+
+    border: 1px solid #188efd;
+
+    font-size: 20px;
 }
 
 .description {
@@ -56,9 +64,13 @@
     padding-right: 5px;
 }
 
+.price {
+    padding-right: 5px;
+}
+
 .name {
     font-weight: bold;
-    padding-right: 5px;
+    font-size: 15px;
 }
 
 .addButton {
