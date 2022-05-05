@@ -70,7 +70,7 @@ const GroceryStoreContainer = (props) => {
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
-                                 last={props.lastPerekrostok}
+                                 last={props.lastVkusvill}
                                  loading={props.loading}
                                  isAll={isAll}/>
         case "mB":
@@ -86,7 +86,7 @@ const GroceryStoreContainer = (props) => {
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
-                                 last={props.lastVkusvill}
+                                 last={props.lastPerekrostok}
                                  loading={props.loading}
                                  isAll={isAll}/>
         case "all":

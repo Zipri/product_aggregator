@@ -14,8 +14,8 @@ const Item = (props) => <div>
 
 const Navbar = (props) => {
     return props.user
-        ?  <Menu mode="inline">
-            <SubMenu title="Магазины">
+        ?  <Menu mode="inline" defaultOpenKeys={['sub']}>
+            <SubMenu title="Магазины" key="sub">
                 <Menu.Item key="1"><Item url="marketA" name="ВкусВилл"/></Menu.Item>
                 <Menu.Item key="2"><Item url="marketB" name="Перекрёсток"/></Menu.Item>
             </SubMenu>

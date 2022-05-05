@@ -1,4 +1,5 @@
 import {firestore} from "../firebase/firebase";
+import {collection, getDocs, limit, query, startAfter, orderBy} from "firebase/firestore";
 
 const SET_PEREKROSTOK = 'grocery/SET_PEREKROSTOK'
 const SET_VKUSVILL = 'grocery/SET_VKUSVILL'
@@ -27,7 +28,7 @@ const groceryReducer = (state = initialState, action) => {
         case SET_PEREKROSTOK:
             return {
                 ...state,
-                perekrostok: [...state.perekrostok, action.perekrostok]
+                perekrostok: [...state.perekrostok, ...action.perekrostok]
             }
 
         case SET_LAST_P:
@@ -39,7 +40,7 @@ const groceryReducer = (state = initialState, action) => {
         case SET_VKUSVILL:
             return {
                 ...state,
-                vkusvill: [...state.vkusvill, action.vkusvill]
+                vkusvill: [...state.vkusvill, ...action.vkusvill]
             }
 
         case SET_LAST_V:
@@ -51,7 +52,7 @@ const groceryReducer = (state = initialState, action) => {
         case SET_ALL:
             return {
                 ...state,
-                all: [...state.all, action.all]
+                all: [...state.all, ...action.all]
             }
 
         case SET_LAST_ALL:
@@ -81,42 +82,49 @@ const setLoading = (loading) => ({type: LOADING, loading})
 
 export const getPerekrostokData = () => async (dispatch) => {
     dispatch(setLoading(true))
-    let data = await firestore.collection('perekrostok').orderBy("Article").limit(NUMBER_OF_STARTITEMS)
-    data.get().then(
-        (doc) => doc.docs.map(
-            item => {
-                dispatch(setPerekrostok(item.data()))
-                dispatch(setLastP(item.data().Article))
-            }
-        )
-    )
+
+    const request = query(
+        collection(firestore, 'perekrostok'),
+        orderBy("Title"),
+        limit(NUMBER_OF_STARTITEMS))
+    let docSnapshots = await getDocs(request)
+
+    let buffer = []
+    docSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setPerekrostok(buffer))
+
+    let lastVisibleEl = docSnapshots.docs[docSnapshots.docs.length-1]
+    dispatch(setLastP(lastVisibleEl))
+
     dispatch(setLoading(false))
 }
 
-export const getMorePerekrostokData = (article) => async (dispatch) => {
-    dispatch(setLoading(true))
-    let data = await firestore.collection('perekrostok').orderBy("Article").startAfter(article).limit(NUMBER_OF_ITEMS)
-    data.get().then(
-        (querySnap) => querySnap.docs.map(
-            item => {
-                dispatch(setPerekrostok(item.data()))
-                dispatch(setLastP(item.data().Article))
-            }
-        )
-    )
-    dispatch(setLoading(false))
+export const getMorePerekrostokData = (lastVisible) => async (dispatch) => {
+    const request = query(
+        collection(firestore, 'perekrostok'),
+        orderBy("Title"),
+        startAfter(lastVisible),
+        limit(NUMBER_OF_ITEMS))
+    let docNewSnapshots = await getDocs(request)
+
+    let buffer = []
+    docNewSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setPerekrostok(buffer))
+
+    let lastVisibleEl = docNewSnapshots.docs[docNewSnapshots.docs.length-1]
+    dispatch(setLastP(lastVisibleEl))
 }
 
 export const getVkusvillData = () => async (dispatch) => {
     dispatch(setLoading(true))
     let data = await firestore.collection('vkusville').orderBy("Article").limit(NUMBER_OF_STARTITEMS)
     data.get().then(
-        (doc) => doc.docs.map(
-            item => {
-                dispatch(setVkusvill(item.data()))
-                dispatch(setLastV(item.data().Article))
-            }
-        )
+        (doc) => {
+            let buffer = []
+            doc.docs.map(item => buffer.push(item.data()))
+            dispatch(setVkusvill(buffer))
+            dispatch(setLastV(buffer[buffer.length - 1].Article))
+        }
     )
     dispatch(setLoading(false))
 }
@@ -125,68 +133,70 @@ export const getMoreVkusvillData = (article) => async (dispatch) => {
     dispatch(setLoading(true))
     let data = await firestore.collection('vkusville').orderBy("Article").startAfter(article).limit(NUMBER_OF_ITEMS)
     data.get().then(
-        (querySnap) => querySnap.docs.map(
-            item => {
-                dispatch(setVkusvill(item.data()))
-                dispatch(setLastV(item.data().Article))
-            }
-        )
+        (querySnap) => {
+            let buffer = []
+            querySnap.docs.map(item => buffer.push(item.data()))
+            dispatch(setVkusvill(buffer))
+            dispatch(setLastV(buffer[buffer.length - 1].Article))
+        }
     )
     dispatch(setLoading(false))
 }
 
 export const getAllData = () => async (dispatch) => {
+    dispatch(setLoading(true))
     let lastV = null;
     let lastP = null;
-    dispatch(setLoading(true))
-    let dataV = await firestore.collection('vkusville')
-        .orderBy("Article").limit(NUMBER_OF_STARTITEMS/2)
+
+    let dataV = await firestore.collection('vkusville').orderBy("Article").limit(NUMBER_OF_STARTITEMS / 2)
     dataV.get().then(
-        (doc) => doc.docs.map(
-            item => {
-                dispatch(setAll(item.data()))
-                lastV = item.data().Article
-            }
-        )
+        (doc) => {
+            let buffer = []
+            doc.docs.map(item => buffer.push(item.data()))
+            dispatch(setAll(buffer))
+            lastV = buffer[buffer.length - 1].Article
+        }
     )
+
     let dataP = await firestore.collection('perekrostok')
-        .orderBy("Article").limit(NUMBER_OF_STARTITEMS/2)
+        .orderBy("Article").limit(NUMBER_OF_STARTITEMS / 2)
     dataP.get().then(
-        (doc) => doc.docs.map(
-            item => {
-                dispatch(setAll(item.data()))
-                lastP = item.data().Article
-            }
-        )
+        (doc) => {
+            let buffer = []
+            doc.docs.map(item => buffer.push(item.data()))
+            dispatch(setAll(buffer))
+            lastP = buffer[buffer.length - 1].Article
+        }
     )
     dispatch(setLastAll(lastV, lastP))
     dispatch(setLoading(false))
 }
 
 export const getMoreAllData = (articleV, articleP) => async (dispatch) => {
+    dispatch(setLoading(true))
     let lastV = null;
     let lastP = null;
-    dispatch(setLoading(true))
-    let dataV = await firestore.collection('vkusville')
-        .orderBy("Article").startAfter(articleV).limit(NUMBER_OF_ITEMS/2)
+
+    let dataV = await firestore.collection('vkusville').orderBy("Article").startAfter(articleV).limit(NUMBER_OF_ITEMS / 2)
     dataV.get().then(
-        (querySnap) => querySnap.docs.map(
-            item => {
-                dispatch(setAll(item.data()))
-                lastV = item.data().Article
-            }
-        )
+        (querySnap) => {
+            let buffer = []
+            querySnap.docs.map(item => buffer.push(item.data()))
+            dispatch(setAll(buffer))
+            lastV = buffer[buffer.length - 1].Article
+        }
     )
-    let dataP = await firestore.collection('perekrostok')
-        .orderBy("Article").startAfter(articleP).limit(NUMBER_OF_ITEMS/2)
+
+    let dataP = await firestore.collection('perekrostok').orderBy("Article").startAfter(articleP).limit(NUMBER_OF_ITEMS / 2)
     dataP.get().then(
-        (querySnap) => querySnap.docs.map(
-            item => {
-                dispatch(setAll(item.data()))
-                lastP = item.data().Article
-            }
-        )
+        (querySnap) => {
+            let buffer = []
+            querySnap.docs.map(item => buffer.push(item.data()))
+            dispatch(setAll(buffer))
+            lastP = buffer[buffer.length - 1].Article
+        }
     )
+
     dispatch(setLastAll(lastV, lastP))
     dispatch(setLoading(false))
 }

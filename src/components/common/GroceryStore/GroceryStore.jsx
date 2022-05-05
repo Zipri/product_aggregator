@@ -36,7 +36,7 @@ const GroceryStore = (props) => {
     return props.loading
         ? <Preloader/>
         : <div className={s.groceryStore}>
-            <ProductGrid products={products}
+            <ProductGrid products={props.products}
                          getMore={getMore}
 
                          favorites={props.favorites}
