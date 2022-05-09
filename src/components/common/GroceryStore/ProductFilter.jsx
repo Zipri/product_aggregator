@@ -1,7 +1,8 @@
-import React from 'react';
-import {Button, Radio, Tooltip} from "antd";
+import React, {useEffect, useState} from 'react';
+import {Button, Radio, Select, Tooltip} from "antd";
 import s from "./GroceryStore.module.css"
 import 'antd/dist/antd.css';
+import {Option} from "antd/es/mentions";
 
 const ProductFilter = (props) => {
     let id = 0;
@@ -9,7 +10,14 @@ const ProductFilter = (props) => {
         props.findByCategory(e.target.value)
     };
 
+    const handleChange = (value) => {
+        props.getOrder(value)
+    }
+
+
+
     return <div className={s.productFilter}>
+
         <div className={s.settings}>
             Количество столбцов:
             <div className={s.setButtons}>
@@ -21,6 +29,16 @@ const ProductFilter = (props) => {
                         onClick={() => props.setCol(props.columns + 1)}>Увеличить</Button>
             </div>
         </div>
+
+        <div className={s.sort}>
+            <div className={s.sortText}>Сортировать по</div>
+            <Select value={props.order} style={{ width: 180 }} onChange={handleChange}>
+                <Option value="Title">Названию</Option>
+                <Option value="Price">Цене</Option>
+                <Option value="Category">Категории</Option>
+            </Select>
+        </div>
+
         <Radio.Group buttonStyle="solid" onChange={onChange}>
             <Radio.Button value={"all"} className={s.radioButtons}>
                 Все категории
@@ -36,6 +54,7 @@ const ProductFilter = (props) => {
                 </Tooltip>
             })}
         </Radio.Group>
+
     </div>
 };
 

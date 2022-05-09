@@ -6,11 +6,13 @@ import {useCollectionData} from "react-firebase-hooks/firestore";
 import Preloader from "../Preloader/Preloader";
 import {connect} from "react-redux";
 import {
+    clearAll,
+    clearP, clearV,
     getAllData, getMoreAllData,
-    getMorePerekrostokData, getMoreVkusvillData,
+    getMorePerekrostokData, getMoreVkusvillData, getOrderAllData, getOrderPerekrostokData, getOrderVkusvillData,
     getPerekrostokData,
     getVkussvillData,
-    getVkusvillData
+    getVkusvillData, setOrderAll, setOrderP, setOrderV
 } from "../../../redux/grocery-reducer";
 
 
@@ -70,6 +72,9 @@ const GroceryStoreContainer = (props) => {
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
+                                 order={props.orderV}
+                                 getOrder={props.getOrderVkusvillData}
+
                                  last={props.lastVkusvill}
                                  loading={props.loading}
                                  isAll={isAll}/>
@@ -85,6 +90,9 @@ const GroceryStoreContainer = (props) => {
                                  basketItems={basketItems.map(item => item.article)}
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
+
+                                 order={props.orderP}
+                                 getOrder={props.getOrderPerekrostokData}
 
                                  last={props.lastPerekrostok}
                                  loading={props.loading}
@@ -102,6 +110,9 @@ const GroceryStoreContainer = (props) => {
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
+                                 order={props.orderAll}
+                                 getOrder={props.getOrderAllData}
+
                                  lastV={props.lastAllV}
                                  lastP={props.lastAllP}
                                  isAll={isAll}/>
@@ -111,19 +122,31 @@ const GroceryStoreContainer = (props) => {
 let mapStateToProps = (state) => ({
     perekrostok: state.groceryPage.perekrostok,
     lastPerekrostok: state.groceryPage.lastPerekrostok,
+
     vkusvill: state.groceryPage.vkusvill,
     lastVkusvill: state.groceryPage.lastVkusvill,
+
     all: state.groceryPage.all,
     lastAllV: state.groceryPage.lastAllV,
     lastAllP: state.groceryPage.lastAllP,
+
+    orderP: state.groceryPage.orderP,
+    orderV: state.groceryPage.orderV,
+    orderAll: state.groceryPage.orderAll,
+
     loading: state.groceryPage.loading,
 });
 
 export default connect(mapStateToProps, {
     getPerekrostokData,
     getMorePerekrostokData,
+    getOrderPerekrostokData,
+
     getVkusvillData,
     getMoreVkusvillData,
+    getOrderVkusvillData,
+
     getAllData,
     getMoreAllData,
+    getOrderAllData,
 })(GroceryStoreContainer);

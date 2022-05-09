@@ -37,10 +37,10 @@ const ProductCell = (props) => {
 
         <div className={s.info}>
             <div className={s.title}>
-                {props.name.length < 39
+                {props.name.length < 37
                     ? <StringInfo name={props.name} title={true}/>
                     : <Tooltip title={props.name}>
-                        <div><StringInfo name={props.name.substring(0, 38) + "..."} title={true}/></div>
+                        <div><StringInfo name={props.name.substring(0, 36) + "..."} title={true}/></div>
                     </Tooltip>
                 }
             </div>

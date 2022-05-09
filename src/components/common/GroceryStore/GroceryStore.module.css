@@ -50,3 +50,12 @@
     justify-content: center;
     width: 85px;
 }
+
+.sort {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.sortText {
+    margin-bottom: 5px;
+}
