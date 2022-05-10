@@ -4,29 +4,34 @@ import ShoppingBasket from "./ShoppingBasket";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {Context} from "../../firebase/firebase";
 import Preloader from "../common/Preloader/Preloader";
+import {connect} from "react-redux";
+import {deleteFromShoppingBasket, getShoppingBasket} from "../../redux/shoppingBasket-reducer";
 
 const ShoppingBasketContainer = (props) => {
     const {firebaseApp, auth, firestore} = useContext(Context)
-    const [basketItems, loadingB] = useCollectionData(
-        firestore.collection('basketitems').where('uid', '==', props.user.uid)
-    )
+
     const [vkusville, loadingV] = useCollectionData(
-        firestore.collection('vkusville')
+        firestore.collection('vkusville').limit(10)
     )
     const [perekrostok, loadingP] = useCollectionData(
-        firestore.collection('perekrostok')
+        firestore.collection('perekrostok').limit(10)
     )
-    const deleteFromBasket = (article) => {
-        const docId = props.user.uid+article
-        firestore.collection('basketitems').doc(docId).delete()
-    }
 
-    return loadingB || loadingV || loadingP
+    return loadingV || loadingP
         ? <Preloader/>
-        : <ShoppingBasket items={basketItems}
-                          deleteFromBasket={deleteFromBasket}
+        : <ShoppingBasket items={props.shoppingBasket}
+                          getItems={props.getShoppingBasket}
+                          deleteFromBasket={props.deleteFromShoppingBasket}
                           productsA={vkusville}
                           productsB={perekrostok}/>
 };
 
-export default ShoppingBasketContainer;
+let mapStateToProps = (state) => ({
+    shoppingBasket: state.shoppingBasketPage.shoppingBasket,
+    loading: state.groceryPage.loading,
+});
+
+export default connect(mapStateToProps, {
+    getShoppingBasket,
+    deleteFromShoppingBasket
+})(ShoppingBasketContainer);

@@ -1,5 +1,9 @@
-const ADD_ITEM = 'shoppingBasket-reducer/ADD_ITEM';
-const DELETE_ITEM = 'shoppingBasket-reducer/DELETE_ITEM';
+import {auth, firestore} from "../firebase/firebase";
+import {collection, getDocs, query, orderBy, where} from "firebase/firestore";
+import {setLoading} from "./grocery-reducer";
+
+const SET_BASKET = 'shoppingBasket/SET_BASKET'
+const DELETE_ITEM = 'shoppingBasket/DELETE_ITEM';
 
 const initialState = {
     shoppingBasket: [],
@@ -7,18 +11,19 @@ const initialState = {
 
 const shoppingBasketReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_ITEM:
+
+        case SET_BASKET:
             return {
                 ...state,
-                shoppingBasket: [
-                    ...state.shoppingBasket,
-                    {id: state.shoppingBasket.length, item: action.newItem}
-                ]
+                shoppingBasket: [...state.shoppingBasket, ...action.shoppingBasket]
             }
 
-        //TODO сделай добавление в копию
         case DELETE_ITEM:
-            return state.filter(item => item.id !== action.itemId)
+            return {
+                ...state,
+                shoppingBasket: state.shoppingBasket
+                    .filter(item => item.article !== action.article)
+            }
 
         default:
             return state
@@ -26,5 +31,43 @@ const shoppingBasketReducer = (state = initialState, action) => {
 };
 export default shoppingBasketReducer;
 
-export const addNewItem = (newItem) => ({type: ADD_ITEM, newItem});
-export const deleteItem = (itemId) => ({type: DELETE_ITEM, itemId});
+const setShoppingBasket = (shoppingBasket) => ({type: SET_BASKET, shoppingBasket});
+const deleteItem = (article) => ({type: DELETE_ITEM, article});
+
+export const getShoppingBasket = (order = 'title')  => async (dispatch) => {
+    dispatch(setLoading(true))
+
+    const request = query(
+        collection(firestore, 'basketitems'),
+        where("uid", "==", auth.currentUser.uid),
+        orderBy(order))
+    console.log(request)
+    let docSnapshots = await getDocs(request)
+
+    let buffer = []
+    docSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setShoppingBasket(buffer))
+
+    dispatch(setLoading(false))
+}
+
+export const addToShoppingBasket = (article, market, category, title, price, image) => async (dispatch) => {
+    const docId = auth.currentUser.uid + article
+    const buffer = {
+        uid: auth.currentUser.uid,
+        article: article,
+        market: market,
+        category: category,
+        title: title,
+        price: price,
+        image: image
+    }
+    dispatch(setShoppingBasket(buffer))
+    await firestore.collection('basketitems').doc(docId).set(buffer)
+}
+
+export const deleteFromShoppingBasket = (article) => async (dispatch) => {
+    const docId = auth.currentUser.uid + article
+    dispatch(deleteItem(article))
+    await firestore.collection('basketitems').doc(docId).delete()
+}

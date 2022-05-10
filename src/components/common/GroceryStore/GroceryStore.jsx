@@ -7,7 +7,6 @@ import Preloader from "../Preloader/Preloader";
 const GroceryStore = (props) => {
     useEffect(() => {
         if (props.products.length === 0) props.getFirst(props.order)
-        console.log(props.order)
     }, [props.products])
 
     let [columns, setColumns] = useState(4)

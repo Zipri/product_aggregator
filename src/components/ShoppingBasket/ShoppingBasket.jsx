@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ProductItem from "../common/ProductItem/ProductItem";
 
 import s from "../ShoppingBasket/ShoppnigBasket.module.css"
@@ -44,6 +44,8 @@ const BasketStore = (props) => {
 }
 
 const ShoppingBasket = (props) => {
+    useEffect(() => {props.getItems()}, [])
+
     return <div className={s.shoppingBasket}>
         <div className={s.userBasket}>
             <div>

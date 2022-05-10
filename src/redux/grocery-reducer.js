@@ -142,7 +142,7 @@ const clearP = () => ({type: CLEAR_P})
 const clearV = () => ({type: CLEAR_V})
 const clearAll = () => ({type: CLEAR_ALL})
 
-const setLoading = (loading) => ({type: LOADING, loading})
+export const setLoading = (loading) => ({type: LOADING, loading})
 
 const universalGetter = async (dispatch, start, market, order, productSetter, lastSetter, lastVisible, all) => {
     if (start) dispatch(setLoading(true))
