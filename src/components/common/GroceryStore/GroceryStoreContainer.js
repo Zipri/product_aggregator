@@ -14,6 +14,7 @@ import {
     getVkussvillData,
     getVkusvillData, setOrderAll, setOrderP, setOrderV
 } from "../../../redux/grocery-reducer";
+import {addToShoppingBasket, deleteFromShoppingBasket, getShoppingBasket} from "../../../redux/shoppingBasket-reducer";
 
 
 const GroceryStoreContainer = (props) => {
@@ -134,6 +135,8 @@ let mapStateToProps = (state) => ({
     orderV: state.groceryPage.orderV,
     orderAll: state.groceryPage.orderAll,
 
+    shoppingBasket: state.shoppingBasketPage.shoppingBasket,
+
     loading: state.groceryPage.loading,
 });
 
@@ -149,4 +152,8 @@ export default connect(mapStateToProps, {
     getAllData,
     getMoreAllData,
     getOrderAllData,
+
+    getShoppingBasket,
+    addToShoppingBasket,
+    deleteFromShoppingBasket,
 })(GroceryStoreContainer);

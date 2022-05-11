@@ -22,6 +22,7 @@ const ShoppingBasketContainer = (props) => {
         : <ShoppingBasket items={props.shoppingBasket}
                           getItems={props.getShoppingBasket}
                           deleteFromBasket={props.deleteFromShoppingBasket}
+                          loading={props.loading}
                           productsA={vkusville}
                           productsB={perekrostok}/>
 };

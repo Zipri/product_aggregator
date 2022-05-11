@@ -4,6 +4,7 @@ import {setLoading} from "./grocery-reducer";
 
 const SET_BASKET = 'shoppingBasket/SET_BASKET'
 const DELETE_ITEM = 'shoppingBasket/DELETE_ITEM';
+const CLEAR_BASKET = 'shoppingBasket/CLEAR_BASKET'
 
 const initialState = {
     shoppingBasket: [],
@@ -25,6 +26,12 @@ const shoppingBasketReducer = (state = initialState, action) => {
                     .filter(item => item.article !== action.article)
             }
 
+        case CLEAR_BASKET:
+            return {
+                ...state,
+                shoppingBasket: []
+            }
+
         default:
             return state
     }
@@ -32,10 +39,12 @@ const shoppingBasketReducer = (state = initialState, action) => {
 export default shoppingBasketReducer;
 
 const setShoppingBasket = (shoppingBasket) => ({type: SET_BASKET, shoppingBasket});
+const clearBasket = () => ({type: CLEAR_BASKET})
 const deleteItem = (article) => ({type: DELETE_ITEM, article});
 
 export const getShoppingBasket = (order = 'title')  => async (dispatch) => {
     dispatch(setLoading(true))
+    dispatch(clearBasket())
 
     const request = query(
         collection(firestore, 'basketitems'),

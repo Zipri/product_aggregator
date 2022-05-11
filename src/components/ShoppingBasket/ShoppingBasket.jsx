@@ -3,6 +3,7 @@ import ProductItem from "../common/ProductItem/ProductItem";
 
 import s from "../ShoppingBasket/ShoppnigBasket.module.css"
 import getCategoryImage from "../common/categoryPictures/getCategoryImage";
+import Preloader from "../common/Preloader/Preloader";
 
 const MyBasket = (props) => {
     let commonPrice = 0;
@@ -46,25 +47,27 @@ const BasketStore = (props) => {
 const ShoppingBasket = (props) => {
     useEffect(() => {props.getItems()}, [])
 
-    return <div className={s.shoppingBasket}>
-        <div className={s.userBasket}>
-            <div>
-                <h1>Ваша корзина:</h1>
-                <MyBasket items={props.items}
-                          deleteFromBasket={props.deleteFromBasket}/>
+    return props.loading
+        ? <Preloader/>
+        : <div className={s.shoppingBasket}>
+            <div className={s.userBasket}>
+                <div>
+                    <h1>Ваша корзина:</h1>
+                    <MyBasket items={props.items}
+                              deleteFromBasket={props.deleteFromBasket}/>
+                </div>
+                <div className={s.dividerV}/>
             </div>
-            <div className={s.dividerV}/>
+            <div>
+                <h1>ВкусВилл:</h1>
+                <BasketStore items={props.items}
+                             products={props.productsA}/>
+                <div className={s.dividerH}/>
+                <h1>Перекрёсток:</h1>
+                <BasketStore items={props.items}
+                             products={props.productsB}/>
+            </div>
         </div>
-        <div>
-            <h1>ВкусВилл:</h1>
-            <BasketStore items={props.items}
-                         products={props.productsA}/>
-            <div className={s.dividerH}/>
-            <h1>Перекрёсток:</h1>
-            <BasketStore items={props.items}
-                         products={props.productsB}/>
-        </div>
-    </div>
 }
 
 export default ShoppingBasket;
