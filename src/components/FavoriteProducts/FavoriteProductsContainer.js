@@ -1,25 +1,27 @@
-import React, {useContext} from "react";
-import {Navigate} from "react-router-dom";
-import {useCollectionData} from "react-firebase-hooks/firestore";
+import React, {useEffect} from "react";
 
 import FavoriteProducts from "./FavoriteProducts";
+import {connect} from "react-redux";
+import {deleteFromFavorites, getFavorites} from "../../redux/favorites-reducer";
 import Preloader from "../common/Preloader/Preloader";
-import {Context} from "../../firebase/firebase";
 
 const FavoriteProductsContainer = (props) => {
-    const {firebaseApp, auth, firestore} = useContext(Context)
-    const [favorites, loading] = useCollectionData(
-        firestore.collection('favorites').where('uid', '==', props.user.uid)
-    )
-    const deleteFromFavorite = (article) => {
-        const docId = props.user.uid+article
-        firestore.collection('favorites').doc(docId).delete()
-    }
+    useEffect(() => {
+        props.getFavorites()
+    }, [])
 
-    if (!props.user) return <Navigate to="/login"/>
-    if (loading) return <Preloader/>
-    return <FavoriteProducts favorites={favorites}
-                             deleteFromFavorite={deleteFromFavorite}/>
+    return props.loading
+        ? <Preloader/>
+        : <FavoriteProducts favorites={props.favorites}
+                            deleteFromFavorite={props.deleteFromFavorites}/>
 };
 
-export default FavoriteProductsContainer;
+let mapStateToProps = (state) => ({
+    favorites: state.favoritesItems.favorites,
+    loading: state.groceryPage.loading,
+});
+
+export default connect(mapStateToProps, {
+    getFavorites,
+    deleteFromFavorites
+})(FavoriteProductsContainer);

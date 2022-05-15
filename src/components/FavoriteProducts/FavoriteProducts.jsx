@@ -25,7 +25,6 @@ const FavoriteProducts = (props) => {
             dataIndex: 'title',
             key: 'title',
             defaultSortOrder: 'descend',
-            sorter: (a, b) => a.title.length - b.title.length,
         },
         {
             title: 'Цена (руб.)',

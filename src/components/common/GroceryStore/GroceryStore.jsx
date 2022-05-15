@@ -5,11 +5,34 @@ import ProductFilter from "./ProductFilter";
 import Preloader from "../Preloader/Preloader";
 
 const GroceryStore = (props) => {
+    let [columns, setColumns] = useState(4)
+    const [basketItems, setBasketItems] = useState(props.basketItems)
+    const [favorites, setFavorites] = useState(props.favorites)
     useEffect(() => {
         if (props.products.length === 0) props.getFirst(props.order)
     }, [props.products])
 
-    let [columns, setColumns] = useState(4)
+
+    const addToBasket = (article, market, category, title, price, image) => {
+        setBasketItems([...basketItems, article])
+        props.addToBasket(article, market, category, title, price, image)
+    }
+    const deleteFromBasket = (article) => {
+        const buffer = basketItems.filter(item => item !== article)
+        setBasketItems(buffer)
+        props.deleteFromBasket(article)
+    }
+
+    const addNewFavorite = (article, market, category, title, price) => {
+        setFavorites([...favorites, article])
+        props.addNewFavorite(article, market, category, title, price)
+    }
+    const deleteFavorite = (article) => {
+        const buffer = favorites.filter(item => item !== article)
+        setFavorites(buffer)
+        props.deleteFavorite(article)
+    }
+
 
     const getMore = () => {
         props.isAll
@@ -38,13 +61,13 @@ const GroceryStore = (props) => {
             <ProductGrid products={props.products}
                          getMore={getMore}
 
-                         favorites={props.favorites}
-                         deleteFavorite={props.deleteFavorite}
-                         addNewFavorite={props.addNewFavorite}
+                         favorites={favorites}
+                         deleteFavorite={deleteFavorite}
+                         addNewFavorite={addNewFavorite}
 
-                         basketItems={props.basketItems}
-                         addToBasket={props.addToBasket}
-                         deleteFromBasket={props.deleteFromBasket}
+                         basketItems={basketItems}
+                         addToBasket={addToBasket}
+                         deleteFromBasket={deleteFromBasket}
 
                          columns={columns}
                          // clear={clear}

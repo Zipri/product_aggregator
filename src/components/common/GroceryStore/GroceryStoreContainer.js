@@ -1,75 +1,51 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 
 import GroceryStore from "./GroceryStore";
-import {Context} from "../../../firebase/firebase";
-import {useCollectionData} from "react-firebase-hooks/firestore";
 import Preloader from "../Preloader/Preloader";
 import {connect} from "react-redux";
 import {
-    clearAll,
-    clearP, clearV,
     getAllData, getMoreAllData,
     getMorePerekrostokData, getMoreVkusvillData, getOrderAllData, getOrderPerekrostokData, getOrderVkusvillData,
     getPerekrostokData,
-    getVkussvillData,
-    getVkusvillData, setOrderAll, setOrderP, setOrderV
+    getVkusvillData, setLoading,
 } from "../../../redux/grocery-reducer";
 import {addToShoppingBasket, deleteFromShoppingBasket, getShoppingBasket} from "../../../redux/shoppingBasket-reducer";
+import {addToFavorites, deleteFromFavorites, getFavorites} from "../../../redux/favorites-reducer";
 
 
 const GroceryStoreContainer = (props) => {
-    const {firebaseApp, auth, firestore} = useContext(Context)
-    const [favorites, loadingF] = useCollectionData(
-        firestore.collection('favorites').where('uid', '==', props.user.uid)
-    )
-    const [basketItems, loadingB] = useCollectionData(
-        firestore.collection('basketitems').where('uid', '==', props.user.uid)
-    )
+    useEffect(async () => {
+        await props.getShoppingBasket()
+        await props.getFavorites()
+    }, [])
+
     const addToFavorite = (article, market, category, title, price) => {
-        const docId = props.user.uid + article
-        firestore.collection('favorites').doc(docId).set({
-            uid: props.user.uid,
-            article: article,
-            market: market,
-            category: category,
-            title: title,
-            price: price,
-        })
+        props.addToFavorites(article, market, category, title, price)
     }
     const deleteFromFavorite = (article) => {
-        const docId = props.user.uid + article
-        firestore.collection('favorites').doc(docId).delete()
+        props.deleteFromFavorites(article)
     }
+
     const addToBasket = (article, market, category, title, price, image) => {
-        const docId = props.user.uid + article
-        firestore.collection('basketitems').doc(docId).set({
-            uid: props.user.uid,
-            article: article,
-            market: market,
-            category: category,
-            title: title,
-            price: price,
-            image: image
-        })
+        props.addToShoppingBasket(article, market, category, title, price, image)
     }
     const deleteFromBasket = (article) => {
-        const docId = props.user.uid + article
-        firestore.collection('basketitems').doc(docId).delete()
+        props.deleteFromShoppingBasket(article)
     }
 
     const isAll = props.market === "all"
-    if (loadingF || loadingB) return <Preloader/>
+    if (props.loading) return <Preloader/>
     switch (props.market) {
         case "mA":
             return <GroceryStore products={props.vkusvill}
                                  getFirst={props.getVkusvillData}
                                  getMore={props.getMoreVkusvillData}
 
-                                 favorites={favorites.map(item => item.article)}
+                                 favorites={props.favorites.map(item => item.article)}
                                  addNewFavorite={addToFavorite}
                                  deleteFavorite={deleteFromFavorite}
 
-                                 basketItems={basketItems.map(item => item.article)}
+                                 basketItems={props.shoppingBasket.map(item => item.article)}
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
@@ -84,11 +60,11 @@ const GroceryStoreContainer = (props) => {
                                  getFirst={props.getPerekrostokData}
                                  getMore={props.getMorePerekrostokData}
 
-                                 favorites={favorites.map(item => item.article)}
+                                 favorites={props.favorites.map(item => item.article)}
                                  addNewFavorite={addToFavorite}
                                  deleteFavorite={deleteFromFavorite}
 
-                                 basketItems={basketItems.map(item => item.article)}
+                                 basketItems={props.shoppingBasket.map(item => item.article)}
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
@@ -103,11 +79,11 @@ const GroceryStoreContainer = (props) => {
                                  getFirst={props.getAllData}
                                  getMore={props.getMoreAllData}
 
-                                 favorites={favorites.map(item => item.article)}
+                                 favorites={props.favorites.map(item => item.article)}
                                  addNewFavorite={addToFavorite}
                                  deleteFavorite={deleteFromFavorite}
 
-                                 basketItems={basketItems.map(item => item.article)}
+                                 basketItems={props.shoppingBasket.map(item => item.article)}
                                  addToBasket={addToBasket}
                                  deleteFromBasket={deleteFromBasket}
 
@@ -136,6 +112,7 @@ let mapStateToProps = (state) => ({
     orderAll: state.groceryPage.orderAll,
 
     shoppingBasket: state.shoppingBasketPage.shoppingBasket,
+    favorites: state.favoritesItems.favorites,
 
     loading: state.groceryPage.loading,
 });
@@ -156,4 +133,10 @@ export default connect(mapStateToProps, {
     getShoppingBasket,
     addToShoppingBasket,
     deleteFromShoppingBasket,
+
+    getFavorites,
+    addToFavorites,
+    deleteFromFavorites,
+
+    setLoading,
 })(GroceryStoreContainer);
