@@ -4,6 +4,9 @@ import GroceryStore from "./GroceryStore";
 import Preloader from "../Preloader/Preloader";
 import {connect} from "react-redux";
 import {
+    findByCategoryP,
+    findByCategoryV,
+    findByName, findByNameAll, findByNameP, findByNameV,
     getAllData, getMoreAllData,
     getMorePerekrostokData, getMoreVkusvillData, getOrderAllData, getOrderPerekrostokData, getOrderVkusvillData,
     getPerekrostokData,
@@ -33,6 +36,9 @@ const GroceryStoreContainer = (props) => {
         props.deleteFromShoppingBasket(article)
     }
 
+    const categoriesP = ["Чай", "Выпечка", "Детское питание", "Полуфабрикаты из птицы", "Колбасные изделия", "Овощи", "Деликатесы и копчености"]
+    const categoriesV = ["Вода", "Замороженная рыба", "Чай. Травы. Кофе. Какао", "Мясные деликатесы", "Карамель. Шоколад. Конфеты", "Молоко, сливки", "Пресервы и консервы", "Салаты и закуски",]
+
     const isAll = props.market === "all"
     if (props.loading) return <Preloader/>
     switch (props.market) {
@@ -51,6 +57,10 @@ const GroceryStoreContainer = (props) => {
 
                                  order={props.orderV}
                                  getOrder={props.getOrderVkusvillData}
+
+                                 findByName={props.findByNameV}
+                                 categories={categoriesV}
+                                 findByCategory={props.findByCategoryV}
 
                                  last={props.lastVkusvill}
                                  loading={props.loading}
@@ -71,6 +81,10 @@ const GroceryStoreContainer = (props) => {
                                  order={props.orderP}
                                  getOrder={props.getOrderPerekrostokData}
 
+                                 findByName={props.findByNameP}
+                                 categories={categoriesP}
+                                 findByCategory={props.findByCategoryP}
+
                                  last={props.lastPerekrostok}
                                  loading={props.loading}
                                  isAll={isAll}/>
@@ -90,6 +104,7 @@ const GroceryStoreContainer = (props) => {
                                  order={props.orderAll}
                                  getOrder={props.getOrderAllData}
 
+                                 findByName={props.findByNameAll}
                                  lastV={props.lastAllV}
                                  lastP={props.lastAllP}
                                  isAll={isAll}/>
@@ -137,6 +152,13 @@ export default connect(mapStateToProps, {
     getFavorites,
     addToFavorites,
     deleteFromFavorites,
+
+    findByNameV,
+    findByNameP,
+    findByNameAll,
+
+    findByCategoryV,
+    findByCategoryP,
 
     setLoading,
 })(GroceryStoreContainer);

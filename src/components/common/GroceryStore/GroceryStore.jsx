@@ -53,7 +53,7 @@ const GroceryStore = (props) => {
     //     }
     // }
 
-    const categories = props.products.map(products => products.Category)
+    // const categories = props.products.map(products => products.Category)
 
     return props.loading
         ? <Preloader/>
@@ -71,11 +71,11 @@ const GroceryStore = (props) => {
 
                          columns={columns}
                          // clear={clear}
-                         // findByName={findByName}
+                         findByName={props.findByName}
                          isAll={props.isAll}/>
 
-            <ProductFilter categories={[...new Set(categories)]}
-                           // findByCategory={findByCategory}
+            <ProductFilter categories={props.categories}
+                           findByCategory={props.findByCategory}
                            columns={columns}
                            setCol={setColumns}
 

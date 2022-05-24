@@ -11,10 +11,10 @@ const ShoppingBasketContainer = (props) => {
     const {firebaseApp, auth, firestore} = useContext(Context)
 
     const [vkusville, loadingV] = useCollectionData(
-        firestore.collection('vkusville').limit(10)
+        firestore.collection('vkusville').limit(30)
     )
     const [perekrostok, loadingP] = useCollectionData(
-        firestore.collection('perekrostok').limit(10)
+        firestore.collection('perekrostok').limit(30)
     )
 
     return loadingV || loadingP

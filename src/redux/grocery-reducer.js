@@ -1,5 +1,5 @@
-import {firestore} from "../firebase/firebase";
-import {collection, getDocs, limit, query, startAfter, orderBy} from "firebase/firestore";
+import {auth, firestore} from "../firebase/firebase";
+import {collection, getDocs, limit, query, startAfter, orderBy, where} from "firebase/firestore";
 
 const SET_PEREKROSTOK = 'grocery/SET_PEREKROSTOK'
 const SET_VKUSVILL = 'grocery/SET_VKUSVILL'
@@ -143,6 +143,87 @@ const clearV = () => ({type: CLEAR_V})
 const clearAll = () => ({type: CLEAR_ALL})
 
 export const setLoading = (loading) => ({type: LOADING, loading})
+
+export const findByCategoryV = (category) => async (dispatch) => {
+    dispatch(clearV())
+
+    const request = query(
+        collection(firestore, 'vkusville'),
+        where("Category", "==", category)
+    )
+    let docSnapshots = await getDocs(request)
+
+    let buffer = []
+    docSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setVkusvill(buffer))
+}
+
+export const findByCategoryP = (category) => async (dispatch) => {
+    dispatch(clearP())
+
+    const request = query(
+        collection(firestore, 'perekrostok'),
+        where("Category", "==", category)
+    )
+    let docSnapshots = await getDocs(request)
+
+    let buffer = []
+    docSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setPerekrostok(buffer))
+}
+
+export const findByNameV = (name) => async (dispatch) => {
+    dispatch(clearV())
+    const newName = name[0].toUpperCase() + name.slice(1)
+
+    const request = query(
+            collection(firestore, 'vkusville'),
+            where("kewWord", "==", newName)
+    )
+    let docSnapshots = await getDocs(request)
+
+    let buffer = []
+    docSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setVkusvill(buffer))
+}
+
+export const findByNameP = (name) => async (dispatch) => {
+    dispatch(clearP())
+    const newName = name[0].toUpperCase() + name.slice(1)
+
+    const request = query(
+        collection(firestore, 'perekrostok'),
+        where("kewWord", "==", newName)
+    )
+    let docSnapshots = await getDocs(request)
+
+    let buffer = []
+    docSnapshots.docs.map(item => buffer.push(item.data()))
+    dispatch(setPerekrostok(buffer))
+}
+
+export const findByNameAll = (name) => async (dispatch) => {
+    dispatch(clearAll())
+
+    const newName = name[0].toUpperCase() + name.slice(1)
+    let buffer = []
+
+    const requestP = query(
+        collection(firestore, 'perekrostok'),
+        where("kewWord", "==", newName)
+    )
+    let docSnapshotsP = await getDocs(requestP)
+    docSnapshotsP.docs.map(item => buffer.push(item.data()))
+
+    const requestV = query(
+        collection(firestore, 'vkusville'),
+        where("kewWord", "==", newName)
+    )
+    let docSnapshotsV = await getDocs(requestV)
+    docSnapshotsV.docs.map(item => buffer.push(item.data()))
+
+    dispatch(setAll(buffer))
+}
 
 const universalGetter = async (dispatch, start, market, order, productSetter, lastSetter, lastVisible, all) => {
     if (start) dispatch(setLoading(true))

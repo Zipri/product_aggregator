@@ -99,7 +99,7 @@ const ProductGrid = (props) => {
 
         <div className={s.searchForm}>
             <Search placeholder="Поиск по названию"
-                    onSearch={props.findByName}
+                    onSearch={(value) => props.findByName(value)}
                     className={s.search}
                     enterButton/>
             <button className={s.searchButton}
