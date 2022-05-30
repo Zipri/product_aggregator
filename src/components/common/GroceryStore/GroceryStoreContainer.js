@@ -104,7 +104,10 @@ const GroceryStoreContainer = (props) => {
                                  order={props.orderAll}
                                  getOrder={props.getOrderAllData}
 
+                                 categories={categoriesP}
+                                 findByCategory={props.findByCategoryP}
                                  findByName={props.findByNameAll}
+
                                  lastV={props.lastAllV}
                                  lastP={props.lastAllP}
                                  isAll={isAll}/>
